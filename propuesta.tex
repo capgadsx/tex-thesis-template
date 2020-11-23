@@ -5,23 +5,23 @@
 \usepackage[T1]{fontenc}
 \usepackage{fontspec}
 \usepackage{anyfontsize}
-\usepackage[letterpaper,top=2.5cm,bottom=3cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
-\renewcommand{\baselinestretch}{1.0}
-\setlength{\parindent}{0cm}
-\setlength{\parskip}{0.4cm}
+% \usepackage[letterpaper,top=2.5cm,bottom=3cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+% \renewcommand{\baselinestretch}{1.0}
+% \setlength{\parindent}{0cm}
+% \setlength{\parskip}{0.4cm}
 \usepackage{hyperref}
 \hypersetup{colorlinks = false}
 
 \begin{document}
 
-\title{AUTOCOMPLETADO DE CONSULTAS SPARQL,\\UNA ALTERNATIVA OPEN SOURCE}
+\title{AUTOCOMPLETADO DE CONSULTAS SPARQL,\\UNA ALTERNATIVA OPEN SOURCE\\ \ \\PROPUESTA}
 
 \author{
-    \IEEEauthorblockN{Carlos Ponce}
+    \IEEEauthorblockN{Carlos Andrés Ponce Godoy}
     \IEEEauthorblockA{\textit{Departamento de Informática} \\
     \textit{Universidad Técnica Federico Santa María}\\
     Valparaíso, Chile\\
-    cponce@alumnos.inf.utfsm.cl}
+    carlos.ponce@sansano.usm.cl}
 }
 
 \maketitle
@@ -29,15 +29,132 @@
 \IEEEpubidadjcol
 
 \begin{abstract}
+    Here goes your abstract
 \end{abstract}
 
 \begin{IEEEkeywords}
+    SPARQL, Web Semántica, RDF
 \end{IEEEkeywords}
 
 \IEEEpeerreviewmaketitle
 
-\section{Introducción}
-
 \section{Definición del problema}
 
+Actualmente, si una persona quisiera realizar una consulta a un endpoint SPARQL,
+necesita conocer dos cosas: primero, la sintaxis para escribir una consulta
+SPARQL funcional y segundo, la estructura de la información almacenada en la base
+de datos del endpoint, la cual se encuentra descrita a través de grafos.
+
+Para usuarios que nunca han utilizado en lenguaje de consultas SPARQL, obtener
+información desde una base de datos RDF como Wikidata, es una tarea que implica
+una cantidad no menor de esfuerzo. Es por esto, que se han desarrollado herramientas
+que facilitan el aprendizaje del lenguaje de consultas, como por ejemplo
+RDFExplorer, [...] (investigar sobre más).
+
+Estas herramientas nos permiten liberarnos de una de nuestras necesidades o incluso
+ambas para construir nuestra consulta SPARQL. En la siguiente tabla comparativa,
+podemos revisar las características y funcionalidades de las herramientas mencionadas.
+
+[INSERTAR TABLA AQUI]
+
+En base a esta comparación, se ha decidido trabajar con RDFExplorer, debido a su
+facilidad de usó, la capacidad de construir consultas de forma interactiva, 
+la posibilidad de navegar las entidades obtenidas y el poder obtener resultados
+mientras se construye la consulta.
+
+[IMAGEN DE RDF EXPLORER]
+
+Sin embargo, aun cuando utilizamos herramientas como RDFExplorer, debemos tener
+algún grado de conocimiento sobre las propiedades de las entidades disponibles
+en la base de datos, conocimiento que no tienen los usuarios que utilizan por primera
+vez este tipo de consultas.
+
+Una forma de apoyar a los usuarios en la tarea de descubrir las propiedades disponibles
+en la base de datos que están utilizando es generando recomendaciones o sugerencias
+sobre cual propiedad se puede obtener para una determinada entidad, similar a lo
+realizado por herramientas de autocompletado al escribir documentos o lo que es más
+cercano al campo de la programación y la informática, el autocompletado de código en
+entornos de desarrollo integrados.
+
+Actualmente existen soluciones que generan recomendaciones en base a endpoints SPARQL
+y que incluso pueden integrarse a RDFExplorer.
+
+[OTRA TABLA COMPARATIVA]
+
+De estas alternativas, la más prometedora para los usuarios es SPARQLForHumans, puesto
+que es posible integrarlo con RDFExplorer. Sin embargo, esta solución tiene un
+problema fundamental y es que la implementación se ha realizado utilizando el
+framework .NET para el lenguaje de programación $C\#$, el cual, si bien actualmente los
+componentes del framework se encuentran bajo las licencias MIT o Apache 2, la propiedad
+sigue perteneciendo a Microsoft, lo cual no logra convencer por completo a la comunidad
+open source para utilizar esta herramienta de desarrollo (generar más argumentos para esto).
+
+En base a esto, lo que buscamos realizar con este trabajo es lograr la funcionalidad obtenida por
+el proyecto SPARQLForHumans pero con una restricción importante, nuestro stack de 
+tecnologías solo puede estar compuesto por software gratuito y de código abierto.
+Además, buscamos realizar las siguientes mejoras al rendimiento del sistema:
+
+\begin{itemize}
+    \item Reducir los tiempos de procesamiento para los dumps de wikidata.
+    \item Reducir el tiempo necesario para generar una recomendación.
+\end{itemize}
+
+\section{Objetivos}
+
+    \subsection{Objetivo general}
+
+Diseñar e implementar un sistema que permita obtener sugerencias para las posibles
+entidades y propiedades de una consulta SPARQL incompleta utilizando exclusivamente
+componentes de código abierto.
+
+    \subsection{Objetivos especificos}
+
+\begin{itemize}
+    \item Diseñar el mecanismo de recomendación para las entidades de una consulta.
+    \item Diseñar la arquitectura del sistema utilizando solamente componentes de código abierto.
+    \item Implementar la arquitectura propuesta.
+    \item Evaluar el rendimiento de la solución implementada.
+\end{itemize}
+
+\section{Discusión bibliográfica preliminar}
+
+Para abordar nuestro problema primero debemos aclarar algunos conceptos que han sido
+mencionados en las secciones anteriores, tales como la web semántica, SPARQL, RDF y el
+contexto en el que estos se utilizan. Para esto, nos apoyaremos en las siguientes definiciones.
+
+    \subsection{La web semántica}
+
+La red informática mundial, \textit{World Wide Web} o simplemente \textit{Web} es el sistema de información público más importante
+desarrollado en los últimos 30 años, el cual permite la transmisión de documentos electrónicos identificados
+por \texttt{URLs} \textit{(Uniform Resource Locators)}, los cuales pueden estar enlazados a otros documentos 
+a través de \texttt{hipertexto} y que se encuentran disponibles utilizando servicios de la internet.
+
+La \textit{World Wide Web} fue diseñada como un espacio para la información con el objetivo de no solo ser
+útil para las comunicaciones entre humanos, sino que también un lugar donde las máquinas podrían ayudar y participar.
+Sin embargo, uno de los principales problemas de la \textit{Web} es que la mayor parte de su contenido ha sido
+diseñado para ser consumido por humanos, lo que implica que para las máquinas y el software no es fácil acceder 
+e interpretar el contenido disponible, incluso si este proviene de una base de datos estructurada a través de
+columnas claras y tipificadas. La web semántica busca desarrollar herramientas,
+lenguajes, protocolos y estándares que permitan, tanto a maquinas como humanos, procesar toda la información disponible en la
+\textit{Web}. En base a esto, podemos definir a la web semántinca como la idea de generar
+una red de datos en la \textit{Web}, hasta cierto punto, una base de datos global. \cite{berners1998semantic}
+
+    \subsubsection{Arquitectura de la web semántica}
+
+[INSERTAR IMAGEN DE WIKIPEDIA]
+
+    \subsection{RDF}
+
+    RDF is...
+
+    \subsection{SPARQL}
+
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv, propuesta.bib}
+
 \end{document}
+
+% refs: what is sparql
+% refs: what is rdf
+% refs: what is wikidata
+% refs: ides, autocompletion features, intellisense
