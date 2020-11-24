@@ -1,20 +1,21 @@
 \documentclass[conference,compsoc]{IEEEtran}
 \usepackage{graphicx}
-\graphicspath{ {figures/} }
 \usepackage[spanish,es-tabla]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{fontspec}
+\usepackage{listings}
+\usepackage{svg}
 \usepackage{anyfontsize}
-% \usepackage[letterpaper,top=2.5cm,bottom=3cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
-% \renewcommand{\baselinestretch}{1.0}
-% \setlength{\parindent}{0cm}
-% \setlength{\parskip}{0.4cm}
 \usepackage{hyperref}
+\graphicspath{ {figures/} }
 \hypersetup{colorlinks = false}
+\lstset{language=SQL,morekeywords={PREFIX,java,rdf,rdfs,url,@prefix}}
+\newcommand{\rdf}{\textit{RDF}\ }
+\newcommand{\spql}{\texttt{SPARQL}\ }
 
 \begin{document}
 
-\title{AUTOCOMPLETADO DE CONSULTAS SPARQL,\\UNA ALTERNATIVA OPEN SOURCE\\ \ \\PROPUESTA}
+\title{SUGERENCIAS PARA LA CONSTRUCCION DE CONSULTAS SPARQL, UNA ALTERNATIVA OPEN SOURCE\\ \ \\PROPUESTA}
 
 \author{
     \IEEEauthorblockN{Carlos Andrés Ponce Godoy}
@@ -40,71 +41,155 @@
 
 \section{Definición del problema}
 
-Actualmente, si una persona quisiera realizar una consulta a un endpoint SPARQL,
-necesita conocer dos cosas: primero, la sintaxis para escribir una consulta
-SPARQL funcional y segundo, la estructura de la información almacenada en la base
-de datos del endpoint, la cual se encuentra descrita a través de grafos.
+La web semántica es un conjunto de extensiones para la \textit{World Wide Web},
+desarrolladas por el \textit{World Wide Web Consortium (W3C)} para permitir que
+la información disponible en la internet puerda ser procesada por máquinas \cite{berners2001semantic}.
 
-Para usuarios que nunca han utilizado en lenguaje de consultas SPARQL, obtener
-información desde una base de datos RDF como Wikidata, es una tarea que implica
-una cantidad no menor de esfuerzo. Es por esto, que se han desarrollado herramientas
-que facilitan el aprendizaje del lenguaje de consultas, como por ejemplo
-RDFExplorer, [...] (investigar sobre más).
+Para lograr esto, la web semántica propone agregar a la información ya existente
+metadatos semánticos para que estos puedan ser procesados por agentes inteligentes,
+los cuales obtendran esta información sin operadores humanos. Estos metadatos pueden
+ser descritos utilizando multiples estandares existentes, uno de ellos es el 
+\textit{Resource Description Framework (RDF)}, el cual define una estructura para
+definir relaciones entre entidades \cite{world2014rdf}.
 
-Estas herramientas nos permiten liberarnos de una de nuestras necesidades o incluso
-ambas para construir nuestra consulta SPARQL. En la siguiente tabla comparativa,
-podemos revisar las características y funcionalidades de las herramientas mencionadas.
+Estas relaciones se describen a través de un trio \textit{sujeto - predicado - objeto},
+en el cual, cada uno de los elementos esta representado por un \textit{Uniform Resource Locator (URL)}.
+Estas relaciones descritas en \rdf pueden ser visualizadas a través de grafos dirigidos como
+el que se encuentra en la figura \ref{fig:rdf-graph1}
 
-[INSERTAR TABLA AQUI]
+\begin{figure}%[h]
+    \centering
+    \includesvg[width=\linewidth]{rdf-graph.svg}
+    \caption{Un grafo \rdf con dos nodos \textit{Subject} y \textit{Object} concetados a través de
+    la relación \textit{Predicate}.}
+    \label{fig:rdf-graph1}
+\end{figure}
 
-En base a esta comparación, se ha decidido trabajar con RDFExplorer, debido a su
-facilidad de usó, la capacidad de construir consultas de forma interactiva, 
-la posibilidad de navegar las entidades obtenidas y el poder obtener resultados
-mientras se construye la consulta.
+Un conjunto de multiples trios que describen multiples relaciones para una gran cantidad
+de entidades se almacena en una \textit{Triplestore}, la cual consiste en una base de datos
+diseñada para responder a consultas al estilo \textit{sujeto - predicado - objeto} del 
+formato \rdf \cite{rusher2001triple}.
 
-[IMAGEN DE RDF EXPLORER]
+El lenguaje utilizado para obtener datos e información desde una \textit{Triplestore} es
+\spql y su nombre corresponde a un acronimo recursivo, el cual significa \textit{SPARQL
+Protocol and RDF Query Language} \cite{world2013sparql}.
 
-Sin embargo, aun cuando utilizamos herramientas como RDFExplorer, debemos tener
-algún grado de conocimiento sobre las propiedades de las entidades disponibles
-en la base de datos, conocimiento que no tienen los usuarios que utilizan por primera
-vez este tipo de consultas.
+El ejemplo más basico de una consulta \spql es el que utiliza las sentencias \texttt{SELECT}
+y \texttt{WHERE}. Primero, definimos nuestro conjunto de datos en el bloque de código \ref{lst:basic-rdf}.
 
-Una forma de apoyar a los usuarios en la tarea de descubrir las propiedades disponibles
-en la base de datos que están utilizando es generando recomendaciones o sugerencias
-sobre cual propiedad se puede obtener para una determinada entidad, similar a lo
-realizado por herramientas de autocompletado al escribir documentos o lo que es más
-cercano al campo de la programación y la informática, el autocompletado de código en
-entornos de desarrollo integrados.
+\begin{figure*}
+    \begin{lstlisting}[captionpos=b, caption=Datos en formato \rdf., label=lst:basic-rdf, basicstyle=\ttfamily,frame=single]
+@prefix exbook: <http://example.org/book>
+@prefix purl: <http://purl.org/dc/elements/1.1>
 
-Actualmente existen soluciones que generan recomendaciones en base a endpoints SPARQL
-y que incluso pueden integrarse a RDFExplorer.
+exbook:book1 purl:title "SPARQL Tutorial" .
+     \end{lstlisting}
+\end{figure*}
 
-[OTRA TABLA COMPARATIVA]
+Luego, realizamos la consulta con las siguientes sentencias, como se puede observar en
+el segmento de código \ref{lst:basic-sparql}.
 
-De estas alternativas, la más prometedora para los usuarios es SPARQLForHumans, puesto
-que es posible integrarlo con RDFExplorer. Sin embargo, esta solución tiene un
-problema fundamental y es que la implementación se ha realizado utilizando el
-framework .NET para el lenguaje de programación $C\#$, el cual, si bien actualmente los
-componentes del framework se encuentran bajo las licencias MIT o Apache 2, la propiedad
-sigue perteneciendo a Microsoft, lo cual no logra convencer por completo a la comunidad
-open source para utilizar esta herramienta de desarrollo (generar más argumentos para esto).
+\begin{figure*}
+    \begin{lstlisting}[captionpos=b, caption=Consulta SPARQL basica., label=lst:basic-sparql, basicstyle=\ttfamily,frame=single]
+PREFIX exbook: <http://example.org/book>
+PREFIX purl: <http://purl.org/dc/elements/1.1>
+SELECT ?title
+WHERE {
+    exbook:book1 purl:title ?title .
+}
+     \end{lstlisting}
+\end{figure*}
 
-En base a esto, lo que buscamos realizar con este trabajo es lograr la funcionalidad obtenida por
-el proyecto SPARQLForHumans pero con una restricción importante, nuestro stack de 
-tecnologías solo puede estar compuesto por software gratuito y de código abierto.
-Además, buscamos realizar las siguientes mejoras al rendimiento del sistema:
+En base a nuestro conjunto de datos disponible, solo existe una
+solución al patron de grafo descrito en la consulta, el resultado es la tabla \ref{tab:basic-result}.
+
+\begin{table}[h]
+    \label{tab:basic-result}
+    \caption{Resultado de una consulta SPARQL básica}
+    \centering
+    \resizebox{0.5\linewidth}{!}{\begin{tabular}{|c|}
+    \hline
+    title               \\ \hline
+    "SPARQL Tutorial"   \\ \hline
+    \end{tabular}}
+\end{table}
+
+En base a todo lo anterior, podemos notar que escribir este tipo de consultas no es
+sencillo e implica un esfuerzo cognitivo importante. Actualmente, si una persona
+quisiera realizar una consulta a una \textit{Triplestore} o base de datos con soporte \spql, necesitará
+conocer dos cosas, la sintaxis de \spql y la estructura de la base de datos que estamos
+consultando.
+
+Para apoyar a los nuevos usuarios a satisfacer estas dos necesidades, se han desarrollado
+herramientas y plataformas que facilitan la construcción de consultas y la exploración
+de las entidades en las bases de datos \rdf como por ejemplo, \textit{RDFExplorer}
+\cite{vargas2019rdf}, \textit{Tabulator} \cite{berners2006tabulator} , \textit{Explorator}
+\cite{araujo2009experimenting}, \textit{DBpedia Atlas} \cite{valsecchi2015dbpedia},
+\textit{RDF Visualizer} \cite{sayers2004node}, \textit{SPARQL Assist}
+\cite{mccarthy2012sparql} o \textit{YASGUI} \cite{rietveld2017yasgui}.
+
+Estas herramientas nos facilitan la tarea de explorar los contenidos de la base de datos \rdf
+y además nos permiten construir consultas \spql de forma interactiva. Para nuestro trabajo,
+hemos decidio trabajar con la plataforma \textit{RDFExplorer} (figura \ref{fig:rdfexplorer}) debido a las siguientes
+caracteristicas que presenta:
 
 \begin{itemize}
-    \item Reducir los tiempos de procesamiento para los dumps de wikidata.
-    \item Reducir el tiempo necesario para generar una recomendación.
+    \item Facilidad de usó.
+    \item Construcción interactiva de consultas \spql.
+    \item Navegación de entidades en la base de datos.
+    \item Generación de resultados parciales.
+    \item Código fuente disponible y abierto.
+\end{itemize}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\linewidth]{rdfexplorer.png}
+    \caption{RDF Explorer}
+    \label{fig:rdfexplorer}
+\end{figure*}
+
+Sin embargo, aun cuando utilizamos herramientas como \textit{RDFExplorer}, debemos tener
+algún grado de conocimiento sobre las propiedades de las entidades disponibles
+en la base de datos, los cuales no tenemos cuando somos nuevos usuarios.
+
+Una forma de apoyar a estos usuarios en la tarea de descubrir las propiedades disponibles
+en nuestra \textit{Triplestore} es generar recomendaciones o sugerencias sobre los \textit{predicados}
+disponible para una determinada entidad, esto es similar a lo realizado por herramientas de autocompletado
+al escribir documentos o lo que es más cercano al campo de la programación y la informática, el
+autocompletado de código realizado por entornos de desarrollo integrados \cite{bruch2009learning}.
+
+Actualmente, existen soluciones y herramientas que nos permiten obtener recomendaciones en base a 
+consultas \spql incompletas como \textit{Gosparqled} \cite{campinas2014live}, \textit{LinkedWiki editor}
+\cite{rafes2018designing}, \textit{SPARKLIS} \cite{ferre2017sparklis}, \textit{SPACE} \cite{kramer2013space}
+y \textit{SPARQLforHumans} \cite{parra2020autocompletion}.
+
+De las anteriores alternativas, la unica que actualmente se encuentra integrada con \textit{RDFExplorer}
+es \textit{SPARQLforHumans}. Sin embargo, esta solución tiene un problema fundamental, su implementación
+se ha realizado utilizando el lenguaje de programación $C\#$ y el framework \texttt{.NET} en el sistema
+operativo \textit{Windows} lo cual limita los entornos de ejecución disponibles en los que puede ser utilizado,
+debido a que depende directamente de las bibliotecas \textit{DLL} del proyecto \textit{Apache Lucene}
+\cite{bialecki2012apache}.
+
+% si bien actualmente los componentes del framework se encuentran bajo las licencias MIT o Apache 2, 
+% la propiedad sigue perteneciendo a la empresa Microsoft, la cual, es conocida por su compleja historia
+% con la comunidad de código abierto.
+
+En base a todo lo expuesto anteriormente, con este trabajo buscamos replicar la funcionalidad obtenida por
+el proyecto \textit{SPARQLforHumans} pero con una restricción importante, los componentes de nuestra arquitectura
+solo pueden corresponder a software gratuito y de código abierto. Además, buscamos realizar las siguientes mejoras
+al rendimiento global del sistema:
+
+\begin{itemize}
+    \item Reducir el tiempo de procesamiento para los dumps de la base de datos de Wikipedia.
+    \item Reducir el tiempo necesario para generar una recomendación a una consulta \spql incompleta.
 \end{itemize}
 
 \section{Objetivos}
 
     \subsection{Objetivo general}
 
-Diseñar e implementar un sistema que permita obtener sugerencias para las posibles
-entidades y propiedades de una consulta SPARQL incompleta utilizando exclusivamente
+Diseñar e implementar un sistema que permita obtener sugerencias para el posible
+resultado de una consulta SPARQL incompleta utilizando exclusivamente
 componentes de código abierto.
 
     \subsection{Objetivos especificos}
@@ -148,6 +233,10 @@ una red de datos en la \textit{Web}, hasta cierto punto, una base de datos globa
     RDF is...
 
     \subsection{SPARQL}
+
+    \section{Plan de trabajo}
+
+    \section{Arbol del problema}
 
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv, propuesta.bib}
