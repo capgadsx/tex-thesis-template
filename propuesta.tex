@@ -32,19 +32,14 @@
 \begin{abstract}
     \spql es el lenguaje utilizado para realizar consultas a las bases de datos orientadas
     a grafos, las cuales, en el contexto de la web semántica, almacenan los datos en forma
-    de trios \textit{sujeto - predicado - objeto} a través del formato \rdf. Sin embargo,
+    de tríos \textit{sujeto - predicado - objeto} a través del formato \rdf. Sin embargo,
     para un usuario con pocos conocimientos sobre la web semántica, escribir una consulta
-    \spql es una tarea que implica un alto esfuezo cognitivo. Se han desarrollado herramientas
-    y plataformas para apoyar a los usuarios en la tarea de explorar las bases de datos y
-    construir consultas \spql, tales como el proyecto \textit{RDF Explorer}. Pero aún no es
-    suficiente, puesto que estas herramientas continuan exigiendo al usuario algún grado de
-    conocimiento sobre el esquema y los contenidos de la base de datos consultada. Una de
-    las soluciones a esta problematica es proveer al usuario con recomendaciones sobre las
-    entidades que existen y que puede consutar en la base de datos. De las multiples
-    soluciones existentes, nos enfocaremos en el proyecto \textit{SPARQLforHumans}. En este
-    trabajo buscamos diseñar e implementar mejoras al rendimiento del proyecto
-    \textit{SPARQLforHumans} con una restricción importante, solo podemos utilizar software
-    de código abierto para nuestra implementación.
+    \spql es una tarea que implica un alto esfuerzo cognitivo. Existen herramientas como
+    \textit{RDF Explorer} que permiten construir consultas de forma interactiva. Pero no es
+    suficiente, puesto que aún le exigimos al usuario conocer el esquema y los contenidos
+    de la base de datos con la que trabajamos. Para esto podemos recomendarle al usuario que entidades
+    puede consultar. En este trabajo buscamos realizar mejores al rendimiento del proyecto
+    \textit{SPARQLforHumans} el cual puede generar recomendaciones a consultas \spql incompletas.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -57,38 +52,38 @@
 
 La web semántica es un conjunto de extensiones para la \textit{World Wide Web},
 desarrolladas por el \textit{World Wide Web Consortium (W3C)} para permitir que
-la información disponible en la internet puerda ser procesada por máquinas \cite{berners2001semantic}.
+la información disponible en la internet pueda ser procesada por máquinas \cite{berners2001semantic}.
 
 Para lograr esto, la web semántica propone agregar a la información ya existente
 metadatos semánticos para que estos puedan ser procesados por agentes inteligentes,
-los cuales obtendran esta información sin operadores humanos. Estos metadatos pueden
-ser descritos utilizando multiples estandares existentes, uno de ellos es el 
+los cuales obtendrán esta información sin operadores humanos. Estos metadatos pueden
+ser descritos utilizando múltiples estándares existentes, uno de ellos es el
 \textit{Resource Description Framework (RDF)}, el cual define una estructura para
 definir relaciones entre entidades \cite{world2014rdf}.
 
 Estas relaciones se describen a través de un trio \textit{sujeto - predicado - objeto},
-en el cual, cada uno de los elementos esta representado por un \textit{Uniform Resource Identifier (URI)}.
+en el cual, cada uno de los elementos está representado por un \textit{Uniform Resource Identifier (URI)}.
 Estas relaciones descritas en \rdf pueden ser visualizadas a través de grafos dirigidos como
 el que se encuentra en la figura \ref{fig:rdf-graph1}
 
 \begin{figure}%[h]
     \centering
     \includesvg[width=\linewidth]{rdf-graph.svg}
-    \caption{Un grafo \rdf con dos nodos \textit{Subject} y \textit{Object} concetados a través de
+    \caption{Un grafo \rdf con dos nodos \textit{Subject} y \textit{Object} conectados a través de
     la relación \textit{Predicate}.}
     \label{fig:rdf-graph1}
 \end{figure}
 
-Un conjunto de multiples trios que describen multiples relaciones para una gran cantidad
+Un conjunto de múltiples tríos que describen múltiples relaciones para una gran cantidad
 de entidades se almacena en una \textit{Triplestore}, la cual consiste en una base de datos
 diseñada para responder a consultas al estilo \textit{sujeto - predicado - objeto} del 
 formato \rdf \cite{rusher2001triple}.
 
 El lenguaje utilizado para obtener datos e información desde una \textit{Triplestore} es
-\spql y su nombre corresponde a un acronimo recursivo, el cual significa \textit{SPARQL
+\spql y su nombre corresponde a un acrónimo recursivo, el cual significa \textit{SPARQL
 Protocol and RDF Query Language} \cite{world2013sparql}.
 
-El ejemplo más basico de una consulta \spql es el que utiliza las sentencias \texttt{SELECT}
+El ejemplo más básico de una consulta \spql es el que utiliza las sentencias \texttt{SELECT}
 y \texttt{WHERE}. Primero, definimos nuestro conjunto de datos en el bloque de código \ref{lst:basic-rdf}.
 
 \begin{figure*}
@@ -115,7 +110,7 @@ WHERE {
 \end{figure*}
 
 En base a nuestro conjunto de datos disponible, solo existe una
-solución al patron del grafo descrito en la consulta, el resultado es la tabla \ref{tab:basic-result}.
+solución al patrón del grafo descrito en la consulta, el resultado es la tabla \ref{tab:basic-result}.
 
 \begin{table}[h]
     \label{tab:basic-result}
@@ -144,8 +139,8 @@ de las entidades en las bases de datos \rdf como por ejemplo, \textit{RDFExplore
 
 Estas herramientas nos facilitan la tarea de explorar los contenidos de la base de datos \rdf
 y además nos permiten construir consultas \spql de forma interactiva. Para nuestro trabajo,
-hemos decidio trabajar con la plataforma \textit{RDFExplorer} (figura \ref{fig:rdfexplorer}) debido a las siguientes
-caracteristicas que presenta:
+hemos decidido trabajar con la plataforma \textit{RDFExplorer} (figura \ref{fig:rdfexplorer}) debido a las siguientes
+características que presenta:
 
 \begin{itemize}
     \item Facilidad de usó.
@@ -158,7 +153,7 @@ caracteristicas que presenta:
 \begin{figure*}
     \centering
     \includegraphics[width=\linewidth]{rdfexplorer.png}
-    \caption{RDF Explorer, construcción de una consulta \spql que obtiene las peliculas dirigidas
+    \caption{RDF Explorer, construcción de una consulta \spql que obtiene las películas dirigidas
     por hermanos, a la derecha, un conjunto de posibles resultados.}
     \label{fig:rdfexplorer}
 \end{figure*}
@@ -178,7 +173,7 @@ consultas \spql incompletas como \textit{Gosparqled} \cite{campinas2014live}, \t
 \cite{rafes2018designing}, \textit{SPARKLIS} \cite{ferre2017sparklis}, \textit{SPACE} \cite{kramer2013space}
 y \textit{SPARQLforHumans} \cite{parra2020autocompletion}.
 
-De las anteriores alternativas, la unica que actualmente se encuentra integrada con \textit{RDFExplorer}
+De las anteriores alternativas, la única que actualmente se encuentra integrada con \textit{RDFExplorer}
 es \textit{SPARQLforHumans}. Sin embargo, esta solución tiene un problema fundamental, su implementación
 se ha realizado utilizando el lenguaje de programación $C\#$ y el framework \texttt{.NET} en el sistema
 operativo \textit{Windows} lo cual limita los entornos de ejecución disponibles en los que puede ser utilizado,
@@ -195,7 +190,7 @@ solo pueden corresponder a software gratuito y de código abierto. Además, busc
 al rendimiento global del sistema:
 
 \begin{itemize}
-    \item Reducir el tiempo de procesamiento para los dumps de la base de datos de Wikipedia.
+    \item Reducir el tiempo de procesamiento para los volcados de la base de datos de Wikipedia.
     \item Reducir el tiempo necesario para generar una recomendación a una consulta \spql incompleta.
 \end{itemize}
 
@@ -206,7 +201,7 @@ al rendimiento global del sistema:
 Diseñar e implementar mejoras al rendimiento de la arquitectura propuesta por el proyecto
 \textit{SPARQLforHumans}, utilizando exclusivamente componentes de código abierto.
 
-    \subsection{Objetivos especificos}
+    \subsection{Objetivos específicos}
 
 \begin{itemize}
     \item Diseñar el mecanismo de recomendación para las entidades de una consulta.
@@ -235,20 +230,20 @@ diseñado para ser consumido por humanos, lo que implica que para las máquinas 
 e interpretar el contenido disponible, incluso si este proviene de una base de datos estructurada a través de
 columnas claras y tipificadas. La web semántica busca desarrollar herramientas,
 lenguajes, protocolos y estándares que permitan, tanto a maquinas como humanos, procesar toda la información disponible en la
-\textit{Web}. En base a esto, podemos definir a la web semántinca como la idea de generar
+\textit{Web}. En base a esto, podemos definir a la web semántica como la idea de generar
 una red de datos en la \textit{Web}, hasta cierto punto, una base de datos global. \cite{berners1998semantic}
 
     \subsection{Arquitectura de la web semántica}
 
-La web semántica esta construida en base a multiples bloques, los cuales representan estandares y lenguajes
-utilizados para lograr determinadas funcionalidades descritas en su arquitectura \cite{harth2011semantic}, una represntación gráfica
+La web semántica está construida en base a múltiples bloques, los cuales representan estándares y lenguajes
+utilizados para lograr determinadas funcionalidades descritas en su arquitectura \cite{harth2011semantic}, una representación gráfica
 de esta arquitectura en bloques se puede observar en la figura \ref{fig:semantic-web-arq}, la cual,
 podemos describir en las siguientes capas.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{semantic_web_stack}
-    \caption{Arquitectura de la web semántica. Construida en base a multiples estandares y lenguajes.}
+    \caption{Arquitectura de la web semántica. Construida en base a múltiples estándares y lenguajes.}
     \label{fig:semantic-web-arq}
 \end{figure}
 
@@ -257,20 +252,20 @@ podemos describir en las siguientes capas.
 El acceso a los datos es fundamental para la arquitectura de la web semántica. Podemos tomar como referencia,
 el modelo utilizado por los servidores \textit{Web}, en el cual, los documentos disponibles se encuentran
 enlazados a otros de forma descentralizada, esto es, que el documento referenciado no necesariamente se
-encuentran en el mismo servidor que esta haciendo referencia a él. Estos enlaces, son utilizados por los usuarios
+encuentra en el mismo servidor que está haciendo referencia a él. Estos enlaces, son utilizados por los usuarios
 para navegar entre los millones de servidores disponibles en la \textit{Web}.
 
-Las \textit{URI/IRI} y el protocolo \textit{HTTP} son parte fundamental del nucleo que define tanto a la
+Las \textit{URI/IRI} y el protocolo \textit{HTTP} son parte fundamental del núcleo que define tanto a la
 \textit{World Wide Web} como a la web semántica. En un ejemplo concreto, la \textit{URI}
 \url{https://en.wikipedia.org/wiki/Back_to_the_Future} en la \textit{Web}, representa el documento en el
-servidor de \textit{wikipedia.org} que contiene información sobre la serie de peliculas y obras de titulo
+servidor de \textit{wikipedia.org} que contiene información sobre la serie de películas y obras de título
 ``Volver al Futuro'', en cambio, en el contexto de la web semántica, las \textit{URIs} \url{https://www.wikidata.org/wiki/Q1} representa al
 ``universo'' como una entidad, la cual es parte del \url{https://www.wikidata.org/wiki/Q3327819} ``multiverso''
 y es estudiado por la \url{https://www.wikidata.org/wiki/Q338} ``cosmología''.
 
 Los datos del ejemplo anterior son publicados por \textit{The Wikipedia Fundation} a través del servicio \textit{Wikidata}
-\cite{vrandevcic2014wikidata}, pero las relaciones descritas podrian enlazar a otros editores de contenido,
-como por ejemplo \textit{DBpedia} \cite{valsecchi2015dbpedia}, el cual es un esfuerzo comuntario para extraer
+\cite{vrandevcic2014wikidata}, pero las relaciones descritas podrían enlazar a otros editores de contenido,
+como por ejemplo \textit{DBpedia} \cite{valsecchi2015dbpedia}, el cual es un esfuerzo comunitario para extraer
 información estructurada desde distintas fuentes y enlazarlas a través del formato \rdf. Para lograr esto,
 los editores de contenido para la web semántica aplican los siguientes principios a sus datos, los cuales
 son conocidos como los ``principios para datos enlazados'' o \textit{LinkedData principles} \cite{bizer2011linked}.
@@ -278,7 +273,7 @@ son conocidos como los ``principios para datos enlazados'' o \textit{LinkedData 
 \begin{enumerate}
     \item Usar \textit{URIs} como nombres para entidades.
     \item Usar \textit{UIRs HTTP} para que los usuarios puedan buscar y acceder a estas entidades.
-    \item Cuando un usuario consulta una \textit{URI}, debes entregar información relevante, utilizando estandares como \rdf y \spql.
+    \item Cuando un usuario consulta una \textit{URI}, debes entregar información relevante, utilizando estándares como \rdf y \spql.
     \item Debes incluir enlaces a otras \textit{URIs}, para que los usuarios descubran más entidades.
 \end{enumerate}
 
@@ -286,7 +281,7 @@ son conocidos como los ``principios para datos enlazados'' o \textit{LinkedData 
 
     \subsubsection{Consultas y actualizaciones}
 
-    \subsubsection{Ontologias y razonamiento}
+    \subsubsection{Ontologías y razonamiento}
 
     \subsubsection{Reglas}
 
