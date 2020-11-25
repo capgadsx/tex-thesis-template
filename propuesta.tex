@@ -15,7 +15,7 @@
 
 \begin{document}
 
-\title{SUGERENCIAS PARA LA CONSTRUCCION DE CONSULTAS SPARQL, UNA ALTERNATIVA OPEN SOURCE\\ \ \\PROPUESTA}
+\title{SUGERENCIAS PARA LA CONSTRUCCIÓN DE CONSULTAS SPARQL, UNA ALTERNATIVA OPEN SOURCE\\ \ \\PROPUESTA}
 
 \author{
     \IEEEauthorblockN{Carlos Andrés Ponce Godoy}
@@ -30,7 +30,21 @@
 \IEEEpubidadjcol
 
 \begin{abstract}
-    Here goes your abstract
+    \spql es el lenguaje utilizado para realizar consultas a las bases de datos orientadas
+    a grafos, las cuales, en el contexto de la web semántica, almacenan los datos en forma
+    de trios \textit{sujeto - predicado - objeto} a través del formato \rdf. Sin embargo,
+    para un usuario con pocos conocimientos sobre la web semántica, escribir una consulta
+    \spql es una tarea que implica un alto esfuezo cognitivo. Se han desarrollado herramientas
+    y plataformas para apoyar a los usuarios en la tarea de explorar las bases de datos y
+    construir consultas \spql, tales como el proyecto \textit{RDF Explorer}. Pero aún no es
+    suficiente, puesto que estas herramientas continuan exigiendo al usuario algún grado de
+    conocimiento sobre el esquema y los contenidos de la base de datos consultada. Una de
+    las soluciones a esta problematica es proveer al usuario con recomendaciones sobre las
+    entidades que existen y que puede consutar en la base de datos. De las multiples
+    soluciones existentes, nos enfocaremos en el proyecto \textit{SPARQLforHumans}. En este
+    trabajo buscamos diseñar e implementar mejoras al rendimiento del proyecto
+    \textit{SPARQLforHumans} con una restricción importante, solo podemos utilizar software
+    de código abierto para nuestra implementación.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -107,7 +121,7 @@ solución al patron del grafo descrito en la consulta, el resultado es la tabla 
     \label{tab:basic-result}
     \caption{Resultado de una consulta SPARQL básica}
     \centering
-    \resizebox{0.6\linewidth}{!}{\begin{tabular}{|c|}
+    \resizebox{0.55\linewidth}{!}{\begin{tabular}{|c|}
     \hline
     title               \\ \hline
     ``SPARQL Tutorial"   \\ \hline
