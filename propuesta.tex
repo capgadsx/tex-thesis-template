@@ -53,7 +53,7 @@ ser descritos utilizando multiples estandares existentes, uno de ellos es el
 definir relaciones entre entidades \cite{world2014rdf}.
 
 Estas relaciones se describen a través de un trio \textit{sujeto - predicado - objeto},
-en el cual, cada uno de los elementos esta representado por un \textit{Uniform Resource Locator (URL)}.
+en el cual, cada uno de los elementos esta representado por un \textit{Uniform Resource Identifier (URI)}.
 Estas relaciones descritas en \rdf pueden ser visualizadas a través de grafos dirigidos como
 el que se encuentra en la figura \ref{fig:rdf-graph1}
 
@@ -101,16 +101,16 @@ WHERE {
 \end{figure*}
 
 En base a nuestro conjunto de datos disponible, solo existe una
-solución al patron de grafo descrito en la consulta, el resultado es la tabla \ref{tab:basic-result}.
+solución al patron del grafo descrito en la consulta, el resultado es la tabla \ref{tab:basic-result}.
 
 \begin{table}[h]
     \label{tab:basic-result}
     \caption{Resultado de una consulta SPARQL básica}
     \centering
-    \resizebox{0.5\linewidth}{!}{\begin{tabular}{|c|}
+    \resizebox{0.6\linewidth}{!}{\begin{tabular}{|c|}
     \hline
     title               \\ \hline
-    "SPARQL Tutorial"   \\ \hline
+    ``SPARQL Tutorial"   \\ \hline
     \end{tabular}}
 \end{table}
 
@@ -138,13 +138,14 @@ caracteristicas que presenta:
     \item Construcción interactiva de consultas \spql.
     \item Navegación de entidades en la base de datos.
     \item Generación de resultados parciales.
-    \item Código fuente disponible y abierto.
+    \item Código fuente disponible y abierto \cite{vargas2019rdfrepo}.
 \end{itemize}
 
 \begin{figure*}
     \centering
     \includegraphics[width=\linewidth]{rdfexplorer.png}
-    \caption{RDF Explorer}
+    \caption{RDF Explorer, construcción de una consulta \spql que obtiene las peliculas dirigidas
+    por hermanos, a la derecha, un conjunto de posibles resultados.}
     \label{fig:rdfexplorer}
 \end{figure*}
 
@@ -167,7 +168,7 @@ De las anteriores alternativas, la unica que actualmente se encuentra integrada 
 es \textit{SPARQLforHumans}. Sin embargo, esta solución tiene un problema fundamental, su implementación
 se ha realizado utilizando el lenguaje de programación $C\#$ y el framework \texttt{.NET} en el sistema
 operativo \textit{Windows} lo cual limita los entornos de ejecución disponibles en los que puede ser utilizado,
-debido a que depende directamente de las bibliotecas \textit{DLL} del proyecto \textit{Apache Lucene}
+debido a que, además, depende directamente de las bibliotecas \textit{DLL} del proyecto \textit{Apache Lucene}
 \cite{bialecki2012apache}.
 
 % si bien actualmente los componentes del framework se encuentran bajo las licencias MIT o Apache 2, 
@@ -188,9 +189,8 @@ al rendimiento global del sistema:
 
     \subsection{Objetivo general}
 
-Diseñar e implementar un sistema que permita obtener sugerencias para el posible
-resultado de una consulta SPARQL incompleta utilizando exclusivamente
-componentes de código abierto.
+Diseñar e implementar mejoras al rendimiento de la arquitectura propuesta por el proyecto
+\textit{SPARQLforHumans}, utilizando exclusivamente componentes de código abierto.
 
     \subsection{Objetivos especificos}
 
@@ -204,14 +204,14 @@ componentes de código abierto.
 \section{Discusión bibliográfica preliminar}
 
 Para abordar nuestro problema primero debemos aclarar algunos conceptos que han sido
-mencionados en las secciones anteriores, tales como la web semántica, SPARQL, RDF y el
+mencionados en las secciones anteriores de manera más formal, tales como la web semántica, SPARQL, RDF y el
 contexto en el que estos se utilizan. Para esto, nos apoyaremos en las siguientes definiciones.
 
     \subsection{La web semántica}
 
 La red informática mundial, \textit{World Wide Web} o simplemente \textit{Web} es el sistema de información público más importante
 desarrollado en los últimos 30 años, el cual permite la transmisión de documentos electrónicos identificados
-por \texttt{URLs} \textit{(Uniform Resource Locators)}, los cuales pueden estar enlazados a otros documentos 
+por \texttt{URIs} \textit{(Uniform Resource Identifiers)}, los cuales pueden estar enlazados a otros documentos
 a través de \texttt{hipertexto} y que se encuentran disponibles utilizando servicios de la internet.
 
 La \textit{World Wide Web} fue diseñada como un espacio para la información con el objetivo de no solo ser
@@ -224,26 +224,76 @@ lenguajes, protocolos y estándares que permitan, tanto a maquinas como humanos,
 \textit{Web}. En base a esto, podemos definir a la web semántinca como la idea de generar
 una red de datos en la \textit{Web}, hasta cierto punto, una base de datos global. \cite{berners1998semantic}
 
-    \subsubsection{Arquitectura de la web semántica}
+    \subsection{Arquitectura de la web semántica}
 
-[INSERTAR IMAGEN DE WIKIPEDIA]
+La web semántica esta construida en base a multiples bloques, los cuales representan estandares y lenguajes
+utilizados para lograr determinadas funcionalidades descritas en su arquitectura \cite{harth2011semantic}, una represntación gráfica
+de esta arquitectura en bloques se puede observar en la figura \ref{fig:semantic-web-arq}, la cual,
+podemos describir en las siguientes capas.
 
-    \subsection{RDF}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{semantic_web_stack}
+    \caption{Arquitectura de la web semántica. Construida en base a multiples estandares y lenguajes.}
+    \label{fig:semantic-web-arq}
+\end{figure}
 
-    RDF is...
+    \subsubsection{Referencias, transporte y principios de los datos enlazados}
 
-    \subsection{SPARQL}
+El acceso a los datos es fundamental para la arquitectura de la web semántica. Podemos tomar como referencia,
+el modelo utilizado por los servidores \textit{Web}, en el cual, los documentos disponibles se encuentran
+enlazados a otros de forma descentralizada, esto es, que el documento referenciado no necesariamente se
+encuentran en el mismo servidor que esta haciendo referencia a él. Estos enlaces, son utilizados por los usuarios
+para navegar entre los millones de servidores disponibles en la \textit{Web}.
+
+Las \textit{URI/IRI} y el protocolo \textit{HTTP} son parte fundamental del nucleo que define tanto a la
+\textit{World Wide Web} como a la web semántica. En un ejemplo concreto, la \textit{URI}
+\url{https://en.wikipedia.org/wiki/Back_to_the_Future} en la \textit{Web}, representa el documento en el
+servidor de \textit{wikipedia.org} que contiene información sobre la serie de peliculas y obras de titulo
+``Volver al Futuro'', en cambio, en el contexto de la web semántica, las \textit{URIs} \url{https://www.wikidata.org/wiki/Q1} representa al
+``universo'' como una entidad, la cual es parte del \url{https://www.wikidata.org/wiki/Q3327819} ``multiverso''
+y es estudiado por la \url{https://www.wikidata.org/wiki/Q338} ``cosmología''.
+
+Los datos del ejemplo anterior son publicados por \textit{The Wikipedia Fundation} a través del servicio \textit{Wikidata}
+\cite{vrandevcic2014wikidata}, pero las relaciones descritas podrian enlazar a otros editores de contenido,
+como por ejemplo \textit{DBpedia} \cite{valsecchi2015dbpedia}, el cual es un esfuerzo comuntario para extraer
+información estructurada desde distintas fuentes y enlazarlas a través del formato \rdf. Para lograr esto,
+los editores de contenido para la web semántica aplican los siguientes principios a sus datos, los cuales
+son conocidos como los ``principios para datos enlazados'' o \textit{LinkedData principles} \cite{bizer2011linked}.
+
+\begin{enumerate}
+    \item Usar \textit{URIs} como nombres para entidades.
+    \item Usar \textit{UIRs HTTP} para que los usuarios puedan buscar y acceder a estas entidades.
+    \item Cuando un usuario consulta una \textit{URI}, debes entregar información relevante, utilizando estandares como \rdf y \spql.
+    \item Debes incluir enlaces a otras \textit{URIs}, para que los usuarios descubran más entidades.
+\end{enumerate}
+
+    \subsubsection{Intercambio de datos}
+
+    \subsubsection{Consultas y actualizaciones}
+
+    \subsubsection{Ontologias y razonamiento}
+
+    \subsubsection{Reglas}
+
+    \subsubsection{Seguridad y encriptación}
+
+    \subsubsection{Unificación e integración}
+
+    \subsubsection{Confianza}
+
+    \subsubsection{Aplicaciones}
 
     \section{Plan de trabajo}
 
-    \section{Arbol del problema}
 
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv, propuesta.bib}
 
-\end{document}
+% \pagebreak~\pagebreak~\pagebreak
 
-% refs: what is sparql
-% refs: what is rdf
-% refs: what is wikidata
-% refs: ides, autocompletion features, intellisense
+\appendices
+
+\section{Arbol del problema}
+
+\end{document}
