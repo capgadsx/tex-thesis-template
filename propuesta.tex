@@ -37,9 +37,10 @@
     \spql es una tarea que implica un alto esfuerzo cognitivo. Existen herramientas como
     \textit{RDF Explorer} que permiten construir consultas de forma interactiva. Pero no es
     suficiente, puesto que aún le exigimos al usuario conocer el esquema y los contenidos
-    de la base de datos con la que trabajamos. Para esto podemos recomendarle al usuario que entidades
+    de la base de datos con la que trabajamos. Para esto podemos recomendar al usuario que entidades
     puede consultar. En este trabajo buscamos realizar mejores al rendimiento del proyecto
-    \textit{SPARQLforHumans} el cual puede generar recomendaciones a consultas \spql incompletas.
+    \textit{SPARQLforHumans} el cual puede generar recomendaciones a consultas \spql incompletas
+    y puede ser integrado con la interfaz \textit{RDF Explorer}.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -87,7 +88,7 @@ El ejemplo más básico de una consulta \spql es el que utiliza las sentencias \
 y \texttt{WHERE}. Primero, definimos nuestro conjunto de datos en el bloque de código \ref{lst:basic-rdf}.
 
 \begin{figure*}
-    \begin{lstlisting}[captionpos=b, caption=Datos en formato \rdf., label=lst:basic-rdf, basicstyle=\ttfamily,frame=single]
+    \begin{lstlisting}[captionpos=b, caption=Datos en formato \rdf., label=lst:basic-rdf, basicstyle=\ttfamily, frame=single]
 @prefix exbook: <http://example.org/book>
 @prefix purl: <http://purl.org/dc/elements/1.1>
 
@@ -99,7 +100,7 @@ Luego, realizamos la consulta con las siguientes sentencias, como se puede obser
 el segmento de código \ref{lst:basic-sparql}.
 
 \begin{figure*}
-    \begin{lstlisting}[captionpos=b, caption=Consulta SPARQL basica., label=lst:basic-sparql, basicstyle=\ttfamily,frame=single]
+    \begin{lstlisting}[captionpos=b, caption=Consulta SPARQL basica., label=lst:basic-sparql, basicstyle=\ttfamily, frame=single]
 PREFIX exbook: <http://example.org/book>
 PREFIX purl: <http://purl.org/dc/elements/1.1>
 SELECT ?title
@@ -279,30 +280,108 @@ son conocidos como los ``principios para datos enlazados'' o \textit{LinkedData 
 
     \subsubsection{Intercambio de datos}
 
-    \subsubsection{Consultas y actualizaciones}
+Los datos de la web semántica son generados por distintas entidades al rededor del mundo, las cuales no estan necesariamente
+coordinados entre ellos, por lo que la arquitectura debe soportar la creación distribuida de datos junto con la integración
+de multiples fuentes y la interoperabilidad entre los datos creados \cite{bizer2011linked}. Este tipo de requerimientos los
+cumplen las estructuras de datos basados en grafos como \rdf. \rdf es un formato basado en la descripción de grafos dirigidos,
+los cuales repsentan la información de la forma de tríos \textit{sujeto - predicado - objeto}, en la cual, el \textit{sujeto} y el
+\textit{predicado} corresponden a nodos del grafo y el \textit{predicado} es un arco que los relaciona como se puede observar
+en la figura \ref{fig:rdf-graph1}. En estos tríos, cualquiera de estos objetos puede tomar el valor de una \textit{URI},
+un valor literal (cadenas de texto, numeros o fechas) o simplemente un nodo vacio (identificadores que no pueden ser
+referenciados por otra entidad).
 
-    \subsubsection{Ontologías y razonamiento}
+\rdf corresponde a la especificación de un lenguaje abstracto para describir relaciones entre entidades, el cual, puede
+ser serializado en multiples formatos de texto como \textit{Extensible Markup Language (XML)} \cite{beckett2004rdf} (listing \ref{lst:rdf-xml1})
+o en un formato más compacto como \textit{Turtle} \cite{beckett2014rdf} (listing \ref{lst:rdf-turtle}).
 
-    \subsubsection{Reglas}
+\begin{figure*}
+    \begin{lstlisting}[language=xml, captionpos=b, caption=Descripción de un documento en \textit{RDF/XML}, label=lst:rdf-xml1, basicstyle=\ttfamily, frame=single]
+<rdf:Description rdf:about="http://www.w3.org/TR/rdf-syntax-grammar"
+    dc:title="RDF 1.1 XML Syntax">
+    <ex:editor>
+        <rdf:Description ex:fullName="Dave Beckett">
+            <ex:homePage rdf:resource="http://purl.org/net/dajobe/"/>
+        </rdf:Description>
+    </ex:editor>
+</rdf:Description>
+    \end{lstlisting}
+\end{figure*}
 
-    \subsubsection{Seguridad y encriptación}
+\begin{figure*}
+    \begin{lstlisting}[captionpos=b, caption=Descripción de un documento en \textit{RDF/Turtle}, label=lst:rdf-turtle, basicstyle=\ttfamily, frame=single]
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix ex: <http://example.org/stuff/1.0/> .
 
-    \subsubsection{Unificación e integración}
+<http://www.w3.org/TR/rdf-syntax-grammar>
+  dc:title "RDF/XML Syntax Specification (Revised)" ;
+  ex:editor [
+    ex:fullname "Dave Beckett";
+    ex:homePage <http://purl.org/net/dajobe/>
+  ] .
+    \end{lstlisting}
+\end{figure*}
 
-    \subsubsection{Confianza}
-
-    \subsubsection{Aplicaciones}
+%    \subsubsection{Consultas y actualizaciones}
+%    \subsubsection{Ontologías y razonamiento}
+%    \subsubsection{Reglas}
+%    \subsubsection{Seguridad y encriptación}
+%    \subsubsection{Unificación e integración}
+%    \subsubsection{Confianza}
+%    \subsubsection{Aplicaciones}
 
     \section{Plan de trabajo}
+
+El plan de trabajo descrito en la tabla \ref{tab:plan-trabajo} se basa en el desarrollo
+de un prototipo inicial el cual será iterado hasta llegar a una solución final. Ambas etapas
+del proyecto deben ser testeadas para evaluar las mejoras realizadas a la base del proyecto
+\textit{SPARQLforHumans}.
+
+\begin{table}[h]
+    \centering
+    \caption{Plan de trabajo para el desarrollo de la memoria propuesta.}
+    \label{tab:plan-trabajo}
+    \begin{tabular}{|l|l|}
+        \hline
+        Actividad                                    & Semanas \\ \hline
+        Desarrollo del estado del arte               & 2       \\ \hline
+        Diseño de la arquitectura de la solución     & 2       \\ \hline
+        Programación e implementación de prototipo   & 3       \\ \hline
+        Pruebas al rendimiento del prototipo         & 1       \\ \hline
+        Programación e implementación de la solución & 7       \\ \hline
+        Pruebas al rendimiento de la solución        & 2       \\ \hline
+        Desarrollo del informe final                 & 3       \\ \hline
+        Correciones                                  & 2       \\ \hline
+        Total                                        & 22      \\ \hline
+    \end{tabular}
+\end{table}
 
 
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv, propuesta.bib}
 
-% \pagebreak~\pagebreak~\pagebreak
+\newpage
 
 \appendices
 
-\section{Arbol del problema}
+\section{Árbol del problema}
+
+\section{Tabla de tiempos SCT}
+
+\begin{table}[h]
+    \begin{tabular}{|l|l|}
+        \hline
+        Actividad                   & Tiempo    \\ \hline
+        Planificación               & 2  hrs.    \\ \hline
+        Busqueda de información     & 6  hrs.    \\ \hline
+        Análisis                    & 2  hrs.    \\ \hline
+        Desarrollo                  & 10 hrs.    \\ \hline
+        Edición                     & 2  hrs.    \\ \hline
+        Video                       & -  hrs.    \\ \hline
+        Total                       & -  hrs.    \\ \hline
+    \end{tabular}
+\end{table}
+
+\section{Enlace al video de la propuesta}
 
 \end{document}
