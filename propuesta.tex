@@ -5,6 +5,7 @@
 \usepackage{fontspec}
 \usepackage{listings}
 \usepackage{svg}
+\usepackage{chngcntr}
 \usepackage{anyfontsize}
 \usepackage{hyperref}
 \graphicspath{ {figures/} }
@@ -68,11 +69,11 @@ Estas relaciones descritas en \rdf pueden ser visualizadas a través de grafos d
 el que se encuentra en la figura \ref{fig:rdf-graph1}
 
 \begin{figure}%[h]
+    \label{fig:rdf-graph1}
     \centering
     \includesvg[width=\linewidth]{rdf-graph.svg}
     \caption{Un grafo \rdf con dos nodos \textit{Subject} y \textit{Object} conectados a través de
     la relación \textit{Predicate}.}
-    \label{fig:rdf-graph1}
 \end{figure}
 
 Un conjunto de múltiples tríos que describen múltiples relaciones para una gran cantidad
@@ -152,11 +153,11 @@ características que presenta:
 \end{itemize}
 
 \begin{figure*}
+    \label{fig:rdfexplorer}
     \centering
     \includegraphics[width=\linewidth]{rdfexplorer.png}
     \caption{RDF Explorer, construcción de una consulta \spql que obtiene las películas dirigidas
     por hermanos, a la derecha, un conjunto de posibles resultados.}
-    \label{fig:rdfexplorer}
 \end{figure*}
 
 Sin embargo, aun cuando utilizamos herramientas como \textit{RDFExplorer}, debemos tener
@@ -242,10 +243,10 @@ de esta arquitectura en bloques se puede observar en la figura \ref{fig:semantic
 podemos describir en las siguientes capas.
 
 \begin{figure}
+    \label{fig:semantic-web-arq}
     \centering
     \includegraphics[width=0.8\linewidth]{semantic_web_stack}
     \caption{Arquitectura de la web semántica. Construida en base a múltiples estándares y lenguajes.}
-    \label{fig:semantic-web-arq}
 \end{figure}
 
     \subsubsection{Referencias, transporte y principios de los datos enlazados}
@@ -338,9 +339,9 @@ del proyecto deben ser testeadas para evaluar las mejoras realizadas a la base d
 \textit{SPARQLforHumans}.
 
 \begin{table}[h]
+    \label{tab:plan-trabajo}
     \centering
     \caption{Plan de trabajo para el desarrollo de la memoria propuesta.}
-    \label{tab:plan-trabajo}
     \begin{tabular}{|l|l|}
         \hline
         Actividad                                    & Semanas \\ \hline
@@ -361,10 +362,21 @@ del proyecto deben ser testeadas para evaluar las mejoras realizadas a la base d
 \bibliography{IEEEabrv, propuesta.bib}
 
 \newpage
-
+\onecolumn
 \appendices
+\counterwithin{figure}{section}
+
 
 \section{Árbol del problema}
+
+El árbol del problema para esta propuesta se puede apreciar en la figura \ref{fig:arbol-prob}
+
+\begin{figure}[htbp]
+    \label{fig:arbol-prob}
+    \centering
+    \includegraphics[width=\textwidth]{arbol}
+    \caption{Árbol del problema para la propuesta.}
+\end{figure}
 
 \section{Tabla de tiempos SCT}
 
@@ -375,8 +387,8 @@ del proyecto deben ser testeadas para evaluar las mejoras realizadas a la base d
         Planificación               & 2  hrs.    \\ \hline
         Búsqueda de información     & 6  hrs.    \\ \hline
         Análisis                    & 2  hrs.    \\ \hline
-        Desarrollo                  & 10 hrs.    \\ \hline
-        Edición                     & 2  hrs.    \\ \hline
+        Desarrollo                  & 12 hrs.    \\ \hline
+        Edición                     & 3  hrs.    \\ \hline
         Video                       & -  hrs.    \\ \hline
         Total                       & -  hrs.    \\ \hline
     \end{tabular}
