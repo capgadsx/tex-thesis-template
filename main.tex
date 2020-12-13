@@ -29,10 +29,10 @@ El resumen y las palabras clave no deben superar la mitad de la página, donde d
 Corresponde a la traducción al idioma inglés del Resumen anterior. Sujeto a la misma regla de extensión del Resumen.
 }
 \newcommand{\palabrasclave}{
-Cinco es el máximo de palabras clave para describir los temas tratados en la memoria, ponerlas separadas por punto y comas.
+SPARQL; RDF; Web Semántica; Autocompletado.
 }
 \newcommand{\palabrasclaveingles}{
-Corresponde a la traducción al idioma inglés de Palabras Clave anteriores.
+\textit{SPARQL}; \textit{RDF}; \textit{Semantic Web}; \textit{Autocompletion}.
 }
 % @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>
 
@@ -86,6 +86,9 @@ Corresponde a la traducción al idioma inglés de Palabras Clave anteriores.
 
 % Para obtener el número de la última página
 \usepackage{lastpage}
+
+% For SVG images
+\usepackage{svg}
 
 % Header y footer
 \usepackage{fancyhdr}
@@ -207,7 +210,7 @@ Corresponde a la traducción al idioma inglés de Palabras Clave anteriores.
 
 \newpage
 % Bibliografía estilo APA:
-\bibliographystyle{apalike-es}
+\bibliographystyle{apalike} % FIXME: apalike-es throws error using 'others' in autors
 \bibliography{bibliografia}{}
 
 \end{document}
