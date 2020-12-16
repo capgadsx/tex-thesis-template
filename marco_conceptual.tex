@@ -2,8 +2,8 @@
 
 Para abordar nuestro problema, primero debemos definir algunos conceptos que han
 sido mencionados en las secciones anteriores de forma más formal, tales como, la
-web semántica, \textit{SPARQL}, \textit{RDF} y el contexto en el que estos se
-utilizan. Para esto, nos apoyaremos en las siguientes definiciones.
+\textit{web} semántica, \textit{SPARQL}, \textit{RDF} y el contexto en el que
+estos se utilizan. Para esto, nos apoyaremos en las siguientes definiciones.
 
 \subsection{Web Semántica}
 
@@ -21,17 +21,18 @@ uno de los principales problemas de la \textit{Web} es que la mayor parte de su
 contenido ha sido diseñado para ser consumido por humanos, lo que implica que
 para las máquinas y el software no es fácil acceder e interpretar el contenido
 disponible, incluso si este proviene de una base de datos estructurada a través
-de columnas claras y tipificadas. La web semántica busca desarrollar
+de columnas claras y tipificadas. La \textit{web} semántica busca desarrollar
 herramientas, lenguajes, protocolos y estándares que permitan, tanto a maquinas
 como humanos, procesar toda la información disponible en la \textit{Web}. En
-base a esto, podemos definir a la web semántica como la idea de generar una red
-de datos en la \textit{Web}, hasta cierto punto, una base de datos global.
+base a esto, podemos definir a la \textit{web} semántica como la idea de generar
+una red de datos en la \textit{Web}, hasta cierto punto, una base de datos
+global.
 \cite{berners1998semantic}
 
 \subsection{Arquitectura de la web semántica}
 
-La web semántica está construida en base a múltiples bloques, los cuales
-representan estándares y lenguajes utilizados para lograr determinadas
+La \textit{web} semántica está construida en base a múltiples bloques, los
+cuales representan estándares y lenguajes utilizados para lograr determinadas
 funcionalidades descritas en su arquitectura \cite{harth2011semantic}, una
 representación gráfica de esta arquitectura en bloques se puede observar en la
 figura \ref{fig:semantic-web-arq}, la cual, podemos describir en las siguientes
@@ -40,14 +41,14 @@ capas.
 \begin{figure}
     \centering
     \includegraphics[width=0.6\linewidth]{semantic_web_stack}
-    \caption{Arquitectura de la web semántica.} Fuente: FIXME
+    \caption{Arquitectura de la \textit{web} semántica.} Fuente: FIXME
     \label{fig:semantic-web-arq}
 \end{figure}
 
 \subsubsection{Referencias, transporte y principios de los datos enlazados}
 
-El acceso a los datos es fundamental para la arquitectura de la web semántica.
-Podemos tomar como referencia, el modelo utilizado por los servidores
+El acceso a los datos es fundamental para la arquitectura de la \textit{web}
+semántica. Podemos tomar como referencia, el modelo utilizado por los servidores
 \textit{Web}, en el cual, los documentos disponibles se encuentran enlazados a
 otros de forma descentralizada, esto es, que el documento referenciado no
 necesariamente se encuentra en el mismo servidor que está haciendo referencia a
@@ -55,13 +56,13 @@ necesariamente se encuentra en el mismo servidor que está haciendo referencia a
 millones de servidores disponibles en la \textit{Web}.
 
 Las URI/IRI y el protocolo HTTP son parte fundamental del núcleo que define
-tanto a la \textit{World Wide Web} como a la web semántica. En un ejemplo
-concreto, la URI \url{https://en.wikipedia.org/wiki/Back_to_the_Future} en la
-\textit{Web}, representa el documento en el servidor
+tanto a la \textit{World Wide Web} como a la \textit{web} semántica. En un
+ejemplo concreto, la URI \url{https://en.wikipedia.org/wiki/Back_to_the_Future}
+en la \textit{Web}, representa el documento en el servidor
 \url{https://www.wikipedia.org} que contiene información sobre la serie de
 películas y obras de título ``Volver al Futuro'', en cambio, en el contexto de
-la web semántica, la URI \url{https://www.wikidata.org/wiki/Q1} representa al
-``universo'' como una entidad, la cual es parte del
+la \textit{web} semántica, la URI \url{https://www.wikidata.org/wiki/Q1}
+representa al ``universo'' como una entidad, la cual es parte del
 \url{https://www.wikidata.org/wiki/Q3327819} ``multiverso'' y es estudiado por
 la \url{https://www.wikidata.org/wiki/Q338} ``cosmología''.
 
@@ -71,8 +72,8 @@ descritas podrían enlazar a otros editores de contenido, como por ejemplo
 DBpedia \cite{valsecchi2015dbpedia}, el cual es un esfuerzo comunitario para
 extraer información estructurada desde distintas fuentes y enlazarlas a través
 del formato \textit{RDF}. Para lograr esto, los editores de contenido para la
-web semántica aplican los siguientes principios a sus datos, los cuales son
-conocidos como los ``principios para datos enlazados'' o \textit{LinkedData
+\textit{web} semántica aplican los siguientes principios a sus datos, los cuales
+son conocidos como los ``principios para datos enlazados'' o \textit{LinkedData
 principles} \cite{bizer2011linked}.
 
 \begin{enumerate}
@@ -97,18 +98,18 @@ principles} \cite{bizer2011linked}.
     \label{fig:rdf-graph1}
 \end{figure}
 
-Los datos de la web semántica son generados por distintas entidades al rededor
-del mundo, las cuales no están necesariamente coordinados entre ellos, por lo
-que la arquitectura debe soportar la creación distribuida de datos junto con la
-integración de múltiples fuentes y la interoperabilidad entre los datos creados
-\cite{bizer2011linked}. Este tipo de requerimientos los cumplen las estructuras
-de datos basados en grafos como \textit{RDF}. \textit{RDF} es un formato basado
-en la descripción de grafos dirigidos, los cuales representan la información de
-la forma de tríos sujeto - predicado - objeto, en la cual, el sujeto y el
-predicado corresponden a nodos del grafo y el predicado es un arco que los
-relaciona como se puede observar en la figura \ref{fig:rdf-graph1}. En estos
-tríos, cualquiera de estos objetos puede tomar el valor de una URI, un valor
-literal (cadenas de texto, números o fechas) o simplemente un nodo vacío
+Los datos de la \textit{web} semántica son generados por distintas entidades al
+rededor del mundo, las cuales no están necesariamente coordinados entre ellos,
+por lo que la arquitectura debe soportar la creación distribuida de datos junto
+con la integración de múltiples fuentes y la interoperabilidad entre los datos
+creados \cite{bizer2011linked}. Este tipo de requerimientos los cumplen las
+estructuras de datos basados en grafos como \textit{RDF}. \textit{RDF} es un
+formato basado en la descripción de grafos dirigidos, los cuales representan la
+información de la forma de tríos sujeto - predicado - objeto, en la cual, el
+sujeto y el predicado corresponden a nodos del grafo y el predicado es un arco
+que los relaciona como se puede observar en la figura \ref{fig:rdf-graph1}. En
+estos tríos, cualquiera de estos objetos puede tomar el valor de una URI, un
+valor literal (cadenas de texto, números o fechas) o simplemente un nodo vacío
 (identificadores que no pueden ser referenciados por otra entidad).
 
 \textit{RDF} corresponde a la especificación de un lenguaje abstracto para
@@ -253,9 +254,9 @@ Otra propiedades importante es \texttt{owl:sameAs}, la cual puede ser usada para
 especificar que dos recursos son identicos, incluso cuando se encuentran en
 repositorios distintos. Por ejemplo, podemos indicar que el recurso
 \url{https://www.wikidata.org/wiki/Q27586} es identico a
-\url{http://dbpedia.org/page/Ferrari}, lo que permite a nuestro agente inteligente consolidar
-información más completa para una entidad determinada desde multiples fuentes de
-datos.
+\url{http://dbpedia.org/page/Ferrari}, lo que permite a nuestro agente
+inteligente consolidar información más completa para una entidad determinada
+desde multiples fuentes de datos.
 
 \subsubsection{Reglas}
 
@@ -293,17 +294,105 @@ obtiene su identidad digital. [FIXME: MÁS TECNICAS DE AUTENTICACIÓN]
 
 \subsubsection{Unificación e integración}
 
-El proceso de unificación 
+El proceso de unificación...
 
 \subsubsection{Confianza}
 
+La confianza en la \textit{web} semántica...
+
 \subsubsection{Aplicaciones}
+
+Estos estandares y técnologias nos permiten crear aplicaciones...
 
 \subsection{Generación de sugerencias}
 
-\subsubsection{Indexación de documentos}
+El proceso de generación de sugerencias de entidades en base a consultas
+\textit{SPARQL} parciales es la interfaz principal a nuestro sistema. Sin
+embargo, para realizar este proceso, debemos ser capaces de conocer las
+relaciones disponibles en nuestro conjunto de datos sin consultar directamente
+al repositorio. Para esto, crearemos un repositorio local que contendra las
+entidades, identificadores, descripciones, relaciones y otras propiedades
+necesarias para enviar las sugerencias a nuestros usuarios utilizando el
+proyecto \textit{Apache Lucene} \cite{apache2012welcome}. Además, debido a la
+gran cantidad de relaciones que pueden existir entre las entidades disponibles,
+debemos generar un mecanismo que nos permita ordenar nuestros resultados por
+relevancia. Utilizaremos el algoritmo \textit{PageRank} \cite{page1999pagerank}
+para realizar este proceso.
 
-\subsubsection{Ranking de resultados}
+\subsubsection{Indexación de documentos}
+\label{sec:index-types}
+
+Al buscar información sobre un documento de texto utilizando palabras claves,
+estamos realizando una busqueda sobre el contenido de este texto. Para lograr
+esto, necesitamos almacenar información sobre el contenido que estamos revisando
+junto con la relación que indica como resultado, el identificador unico de la
+fuente. Por ejemplo, cuando buscamos un libro a través del nombre de uno de sus
+capitulos, las palabras claves son aquellas que se encuentran en el nombre del
+capitulo y el identificador puede ser el nombre del libro. Este proceso de
+busqueda se suele realizar a través de indices en bases de datos relacionales.
+
+En el contexto de las bases de datos relacionales, los tipos de indicies más
+conocidos son el indice delantero (\textit{forward index}) y en indice inverso
+(\textit{inverse index}). Estrictamente hablando, no existe una diferencia
+técnica en estos dos tipos de indices, puesto que la implementación es la misma
+y es al momento de contextualizar el entorno en el que utilizaremos estos
+indices donde se genera una diferencia. En el mundo de la busqueda de
+documentos, un \textit{forward index} se construlle describiendo la relación
+``El documento \texttt{id=doc1} contiene las palabras \texttt{el} y
+\texttt{contenido}'', en cambio, un \textit{inverse index} nos presenta la
+información de la forma ``La palabra \texttt{contenido} se encuentra en los
+documentos \texttt{id=[doc1, doc2]}''. Una ilustración de este ejemplo se puede
+observar en la figura \ref{fig:forward-backward-index}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{forward_backward_index.png}
+    \caption{FIXME}
+    \label{fig:forward-backward-index}
+\end{figure}
+
+Nuestro repositorio local consiste en un \textit{inverse index}, en el cual, las
+etiquetas, descripciones, propiedades y relaciones descritas en el grafo
+\textit{RDF} apuntan al identeificador de la entidad descrita. De esta forma,
+podemos buscar entidades utilizando sus propiedades de la misma forma en la que
+buscamos un libro a través de su contenido.
+
+Utilizaremos el proyecto \textit{Apache Lucene} \cite{apache2012welcome} para
+lograr esta funcionalidad, puesto que, soporta estos y muchos tipos más de
+indices para documentos de texto.
+
+\subsubsection{\textit{Ranking} de resultados}
+
+Una vez que hemos obtenido entidades para generar sugerencias, debemos entregar
+a nuestro usuario las más relevantes para la consulta parcial que estamos
+construyendo. Para esto, utilizaremos el algoritmo \textit{PageRank}
+\cite{page1999pagerank}, el cual nos permite asignar un valor de importancia a
+los resultados en base a la cantidad de conexiónes que cada elemento del grafo
+\textit{RDF} tiene en relacion a sus propiedades y otras entidades.
+
+\textit{PageRank} fue diseñado para agregar order e importancia a los resultados
+de los primeros motores de busqueda en la \textit{web}. En el diseño del
+algoritmo, los autores proponen que los sitios disponibles en la \textit{web}
+están pueden ser modelados utilizando un grafo dirigido, en el cual, cada sitio
+es un nodo del grafo y cada enlace hacia o desde estos sitios representa un arco
+entre los nodos. Una vez que hemos construido nuestra representación, debemos
+ejecutar nuestro algoritmo recursivo para asignar una alta importancia a
+aquellos documentos que tienen muchos enlaces entrantes y pocos enlaces
+salientes.
+
+El proceso recursivo asigna un valor inicial al \textit{rank} todos los
+documentos en la representación de forma tal que la suma de todos estos valores
+es $1$. El siguiente paso es compartir el \textit{rank} de un documento entre
+aquellos documentos a los que enlaza: un documento con alto \textit{rank}
+entregará bastante puntaje a sus enlazados en comparación a un documento de bajo
+\textit{rank} y con muchos enlaces salientes.
+
+Este proceso recursivo esta asegurado para converger, por lo que despues de una
+cantidad de terminada de iteraciones, el \textit{rank} de todos los documentos ha
+sido calculado.
 
 \subsection{RDFExplorer}
 
+\textit{RDFExplorer} es...
+
+% FIXME: FIGS LABELS, REFS, EDITION ROUND

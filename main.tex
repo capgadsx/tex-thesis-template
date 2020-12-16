@@ -16,24 +16,29 @@
 \newcommand{\mesexamen}{Julio}
 \newcommand{\anioexamen}{2021}
 % Dedicatoria y agradecimientos
-\newcommand{\dedicatoria}{
-Considerando lo importancia de este trabajo para los alumnos, este apartado es para que el autor entregue palabras personales para dedicar este documento. La extensión puede ser de máximo una hoja y se deben mantener este formato, tipo y tamaño de letra.
-}
-\newcommand{\agradecimientos}{
-Considerando la importancia de este trabajo para los alumnos, este apartado se podrá incluir en el caso de que el autor desee agradecer a las personas que facilitaron alguna ayuda relevante en su trabajo para la realización de este documento. La extensión puede ser de máximo una hoja y se deben mantener este formato, tipo y tamaño de letra.
-}
-\newcommand{\resumen}{
-El resumen y las palabras clave no deben superar la mitad de la página, donde debe precisarse brevemente: 1) lo que el autor ha hecho, 2) cómo lo hizo (sólo si es importante detallarlo), 3) los resultados principales, 4) la relevancia de los resultados. El resumen es una representación abreviada, pero comprensiva de la memoria y debe informar sobre el objetivo, la metodología y los resultados del trabajo realizado.
-}
-\newcommand{\resumeningles}{
-Corresponde a la traducción al idioma inglés del Resumen anterior. Sujeto a la misma regla de extensión del Resumen.
-}
-\newcommand{\palabrasclave}{
-SPARQL; RDF; Web Semántica; Autocompletado.
-}
-\newcommand{\palabrasclaveingles}{
-\textit{SPARQL}; \textit{RDF}; \textit{Semantic Web}; \textit{Autocompletion}.
-}
+\newcommand{\dedicatoria}{Considerando lo importancia de este trabajo para los
+alumnos, este apartado es para que el autor entregue palabras personales para
+dedicar este documento. La extensión puede ser de máximo una hoja y se deben
+mantener este formato, tipo y tamaño de letra.
+\hfill\vfill
+\textit{nanos gigantum humeris insidentes}.}
+
+\newcommand{\agradecimientos}{Considerando la importancia de este trabajo para
+los alumnos, este apartado se podrá incluir en el caso de que el autor desee
+agradecer a las personas que facilitaron alguna ayuda relevante en su trabajo
+para la realización de este documento. La extensión puede ser de máximo una hoja
+y se deben mantener este formato, tipo y tamaño de letra.}
+
+\newcommand{\resumen}{El resumen y las palabras clave no deben superar la mitad
+de la página, donde debe precisarse brevemente: 1) lo que el autor ha hecho, 2)
+cómo lo hizo (sólo si es importante detallarlo), 3) los resultados principales,
+4) la relevancia de los resultados. El resumen es una representación abreviada,
+pero comprensiva de la memoria y debe informar sobre el objetivo, la metodología
+y los resultados del trabajo realizado.} \newcommand{\resumeningles}{Corresponde
+a la traducción al idioma inglés del Resumen anterior. Sujeto a la misma regla
+de extensión del Resumen.} \newcommand{\palabrasclave}{SPARQL; RDF; Web
+Semántica; Autocompletado.} \newcommand{\palabrasclaveingles}{\textit{SPARQL};
+\textit{RDF}; \textit{Semantic Web}; \textit{Autocompletion}.}
 % @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>
 
 % Paquete para importar imágenes
@@ -100,13 +105,13 @@ SPARQL; RDF; Web Semántica; Autocompletado.
     \cfoot{\fontsize{10}{12}\selectfont \thepage}
     \rfoot{}
     \renewcommand{\headrulewidth}{0pt}
-}
-\fancypagestyle{intermedio}{
+} \fancypagestyle{intermedio}{
     \lhead{}
     \chead{\fontsize{10}{12}\selectfont\MakeUppercase{\titulo}}
     \rhead{}
     \lfoot{}
-    \cfoot{\fontsize{10}{12}\selectfont Página \textbf{\thepage}\ de \textbf{\pageref{LastPage}}}
+    \cfoot{\fontsize{10}{12}\selectfont Página \textbf{\thepage}\ de
+    \textbf{\pageref{LastPage}}}
     \rfoot{}
     \renewcommand{\headrulewidth}{1pt}
 }
@@ -117,8 +122,7 @@ SPARQL; RDF; Web Semántica; Autocompletado.
 \section*{CAPÍTULO \thesection \texorpdfstring{\\}\ #1}
 \addcontentsline{toc}{section}{CAPÍTULO \thesection : #1}
 \setcounter{subsection}{0}
-}
-\newcommand{\secnumberlesssection}[1]{
+} \newcommand{\secnumberlesssection}[1]{
 \section*{#1}
 \phantomsection
 \addcontentsline{toc}{section}{#1}
@@ -135,19 +139,13 @@ SPARQL; RDF; Web Semántica; Autocompletado.
       \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
       \list{\@biblabel{\@arabic\c@enumiv}}%
            {\settowidth\labelwidth{\@biblabel{#1}}%
-            \leftmargin\labelwidth
-            \advance\leftmargin\labelsep
-            \@openbib@code
+            \leftmargin\labelwidth \advance\leftmargin\labelsep \@openbib@code
             \usecounter{enumiv}%
-            \let\p@enumiv\@empty
-            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+            \let\p@enumiv\@empty \renewcommand\theenumiv{\@arabic\c@enumiv}}%
       \sloppy
-      \clubpenalty4000
-      \@clubpenalty \clubpenalty
-      \widowpenalty4000%
-      \sfcode`\.\@m}
-     {\def\@noitemerr
-       {\@latex@warning{Empty `thebibliography' environment}}%
+      \clubpenalty4000 \@clubpenalty \clubpenalty \widowpenalty4000%
+      \sfcode`\.\@m} {\def\@noitemerr {\@latex@warning{Empty `thebibliography'
+     environment}}%
       \endlist}
 \makeatother
 
@@ -209,8 +207,12 @@ SPARQL; RDF; Web Semántica; Autocompletado.
 \input{anexos}
 
 \newpage
-% Bibliografía estilo APA:
-\bibliographystyle{apalike} % FIXME: apalike-es throws error using 'others' in autors
+
+FIXME: apalike-es throws error using 'others' in autors
+
+FIXME: FORMATO
+
+\bibliographystyle{apalike} % 
 \bibliography{bibliografia}{}
 
 \end{document}
