@@ -5,7 +5,7 @@ sido mencionados en las secciones anteriores de forma más formal, tales como, l
 \textit{web} semántica, \textit{SPARQL}, \textit{RDF} y el contexto en el que
 estos se utilizan. Para esto, nos apoyaremos en las siguientes definiciones.
 
-\subsection{Web Semántica}
+\subsection{\textit{Web} Semántica}
 
 La red informática mundial, \textit{World Wide Web} o simplemente \textit{Web}
 es el sistema de información público más importante desarrollado en los últimos
@@ -29,7 +29,7 @@ una red de datos en la \textit{Web}, hasta cierto punto, una base de datos
 global.
 \cite{berners1998semantic}
 
-\subsection{Arquitectura de la web semántica}
+\subsection{Arquitectura de la \textit{web} semántica}
 
 La \textit{web} semántica está construida en base a múltiples bloques, los
 cuales representan estándares y lenguajes utilizados para lograr determinadas
@@ -41,11 +41,13 @@ capas.
 \begin{figure}
     \centering
     \includegraphics[width=0.6\linewidth]{semantic_web_stack}
-    \caption{Arquitectura de la \textit{web} semántica.} Fuente: FIXME
+    \caption{Arquitectura de la \textit{web} semántica.} Fuente:
+    \textit{Semantic Web Stack}. Wikipedia.
     \label{fig:semantic-web-arq}
 \end{figure}
 
 \subsubsection{Referencias, transporte y principios de los datos enlazados}
+\label{sec:refs-transporte-enlazados}
 
 El acceso a los datos es fundamental para la arquitectura de la \textit{web}
 semántica. Podemos tomar como referencia, el modelo utilizado por los servidores
@@ -94,7 +96,8 @@ principles} \cite{bizer2011linked}.
     \includesvg[width=\linewidth]{rdf-graph.svg}
     \caption{Un grafo \textit{RDF} básico.} Los nodos \textit{Subject} y
     \textit{Object} están conectados a través de la relación \textit{Predicate}.
-    Fuente: FIXME.
+    Fuente: \textit{RDF 1.1 Concepts and Abstract Syntax. World Wide Web
+    Consortium}.
     \label{fig:rdf-graph1}
 \end{figure}
 
@@ -158,7 +161,10 @@ acronimo recursivo ``\textit{\textbf{S}PARQL \textbf{P}rotocol \textbf{A}nd
 lenguaje esta diseñado para evaluar consultas hacia repositorios de datos
 almacenados en formato \textit{RDF}, en estos repositorios, la información no se
 obtiene accediendo de forma iterativa a distintas URIs que representan
-entidades, si no que enviando consultas a un \textit{endpoint} que soporta
+entidades, si no que enviando consultas a un
+\textit{endpoint}\footnote{\textit{Endpoint:} Del inglés punto final. Se refiere
+a un punto en la red expuesto por un sistema informático con el cual se puede
+interactuar o establecer un canal de comunicaciones.} que soporta
 \textit{SPARQL}. \textit{SPARQL} permite a sus usuarios especificar URIs
 arbitrarias, las cuales podrian no ser accesibles a través de la \textit{Web},
 junto con un patron de grafo dirigido el cual debe coincidir con los datos
@@ -170,7 +176,8 @@ en las que el elenco de ``Volver al futuro'' ha participado.
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{graph-pattern-ex.png}
-    \caption{FIXME}
+    \caption{Patrón de un grafo \textit{RDF} básico. } Fuente: Elaboración
+    propia.
     \label{fig:graph-pattern-ex}
 \end{figure}
 
@@ -191,21 +198,28 @@ a determinadas estrucutras que cumplan con creiterios especificados.
 \begin{figure}
     \centering
     \includegraphics[width=0.85\linewidth]{graph-pattern-ex-sparql.png}
-    \caption{FIXME}
+    \caption{Una consulta \textit{SPARQL} realizada al servicio Wikidata.}
+    Fuente: Elaboración propia.
     \label{fig:graph-pattern-ex-sparql}
 \end{figure}
 
-FIXME: REFS FIXME: Updated ranking of implementations
+% FIXME: Updated ranking of implementations
 
 La especificación \textit{SPARQL} puede ser implementada en multiples
-repositorios orientados a grafos, entre los populares se encuentran Sesame 16,
-Jena 52, Virtuoso 77, BigData 9, OWLIM 60 y RDF-3X 55. Debido a que en muchas
+repositorios orientados a grafos, entre los populares se encuentran Sesame
+\cite{broekstra2002sesame}, Jena \cite{mcbride2001jena}, Virtuoso
+\cite{openlink2015virtuoso}, BigData \cite{thompson2016bigdata}, OWLIM
+\cite{kiryakov2005owlim} y RDF-3X \cite{neumann2010rdf}. Debido a que en muchas
 ocaciones los datos estan almacenados en bases de datos relacionales, se
-necesitan \textit{wrappers} que nos permitan acceder a estos datos a través de
-\textit{APIs}. Ejemplos conocidos de estos \textit{wrappers} son DR2 10 y
-Triplify 13. Estas herramientas permiten que fuentes de datos legadas puedan ser
-expuestas y consultadas como grafos semánticos, lo cual facilita la transición
-hacia estas nuevas técnologias.
+necesitan \textit{wrappers}\footnote{\textit{Wrapper:} Del inglés envoltorio.
+Una función o segmento de \textit{software} que ejecuta a otras funciones ya sea
+por comodidad o para mejorar la compatibilidad o interoperabilidad del
+\textit{software} ejecutado.} que nos permitan acceder a estos datos a través de
+\textit{APIs}. Ejemplos conocidos de estos \textit{wrappers} son D2R
+\cite{bizer2006d2r} y Triplify \cite{auer2009triplify}. Estas herramientas
+permiten que fuentes de datos legadas puedan ser expuestas y consultadas como
+grafos semánticos, lo cual facilita la transición hacia estas nuevas
+técnologias.
 
 Además de la especificación de un lenguaje, \textit{SPARQL} define los
 protocolos de acceso y formatos interoperables para los conjuntos de datos
@@ -222,13 +236,16 @@ diseñando una solución alternativa para realizar consultas federadas. [FIXME:
 ESTO PARECE DESACTUALIZADO, BUSCAR UNA MEJOR FUENTE]
 
 \subsubsection{Ontologías y razonamiento}
+\label{sec:ontologia-y-razonamiento}
 
 Para codificar un significado a nuestros datos debemos utilizar construcciones
 logicas. Las técnologias que habilitan el razonamiento para la \textit{web}
 semántica son los esquemas \textit{RDF}, el lenguaje de
-ontologías\footnote{Definir una ontología} \textit{OWL (Web Ontology Language)}
-\cite{antoniou2004web} y \textit{RIF (Rule Interchange Format)}
-\cite{kifer2008rule}.
+ontologías\footnote{Ontología: En el campo de la informática, corresponde a una
+definición formal de tipos, propiedades y relaciones entre distintas entidades
+las cuales pertenecen a un determinado conjunto o dominio.} \textit{OWL (Web
+Ontology Language)} \cite{antoniou2004web} y \textit{RIF (Rule Interchange
+Format)} \cite{kifer2008rule}.
 
 Para explicar el razonamiento en la \textit{web} semántica, esto es, generar
 conclusiones en base a hechos y verdades disponibles en nuestros repositorios de
@@ -239,16 +256,18 @@ utilizado en las secciones anteriores a través de las propiedades
 Consideremos el siguiente ejemplo, definiremos una ontología llamada
 \texttt{OntologíaFormula1} en el contexto de la competencia de automovilismo
 internacional, esta ontología define dos clases: \texttt{f1:Competidores},
-\texttt{f1:Equipo} y contiene un axioma\footnote{Definir axioma} el cual indica
-que \texttt{f1:Equipo} es una subclase de \texttt{f1:Competidores} a través de
-la propiedad \texttt{rdfs:subClassOf}. Esta relación le permite a un agente
-inteligente deducir que las instancias de \texttt{f1:Equipo} también son del
-tipo \texttt{f1:Competidores}, de esta forma si en nuetro repositorio existen
-los registros ``Charles Leclerc'' del tipo \texttt{f1:Competidores} y
-``Ferrari'' del tipo \texttt{f1:Equipo}, cuando realizemos una consulta por
-todas las entidades del tipo \texttt{f1:Competidores} obtendremos como resultado
-``Charles Leclerc'' y ``Ferrari'' incluso cuando las instancias no especifican
-esta relación de forma explicita.
+\texttt{f1:Equipo} y contiene un axioma\footnote{Axioma: Una sentencia que debe
+ser considerada verdadera y que se utiliza como primisa para realizar futuros
+rezonamientos o argumentos.} el cual indica que \texttt{f1:Equipo} es una
+subclase de \texttt{f1:Competidores} a través de la propiedad
+\texttt{rdfs:subClassOf}. Esta relación le permite a un agente inteligente
+deducir que las instancias de \texttt{f1:Equipo} también son del tipo
+\texttt{f1:Competidores}, de esta forma si en nuetro repositorio existen los
+registros ``Charles Leclerc'' del tipo \texttt{f1:Competidores} y ``Ferrari''
+del tipo \texttt{f1:Equipo}, cuando realizemos una consulta por todas las
+entidades del tipo \texttt{f1:Competidores} obtendremos como resultado ``Charles
+Leclerc'' y ``Ferrari'' incluso cuando las instancias no especifican esta
+relación de forma explicita.
 
 Otra propiedades importante es \texttt{owl:sameAs}, la cual puede ser usada para
 especificar que dos recursos son identicos, incluso cuando se encuentran en
@@ -263,10 +282,10 @@ desde multiples fuentes de datos.
 Otro mecanismo que nos permite generar conclusiones en base a datos existentes
 son las regals logicas. Estas reglas estan compuestas de dos secciones,
 antecedentes y consequencias: si se cumplen las sentencias en los antecedentes,
-entonces las sentencias de la consequencias son verdaderas. La \textit{W3C}
-recomienda utilizar \textit{RIF} ?? para intercambiar reglas entre sistemas. El
-conjunto común de reglas utilizadas en multiples sistemas ha sido estandarizado
-en \textit{RIF Core} 12.
+entonces las sentencias en las consequencias son verdaderas. La \textit{W3C}
+recomienda utilizar \textit{RIF} \cite{kifer2013rif} para intercambiar reglas
+entre sistemas. El conjunto común de reglas utilizadas en multiples sistemas ha
+sido estandarizado en \textit{RIF Core} \cite{boley2010rif}.
 
 \subsubsection{Seguridad y encriptación}
 
@@ -278,31 +297,143 @@ forma segura. Estos problemas son abordados utilizando la capa de criptografia
 en la \textit{web} semántica.
 
 Para asegurar que los datos no son alterados durante su transmisión se utiliza
-el protocolo HTTPS 66 el cual implementa encriptación para proteger la
-información de ataques \textit{man-in-the-middle}\footnote{Explicar MITM}.
+el protocolo HTTPS \cite{rescorla2000rfc2818} el cual implementa encriptación
+para proteger la información de ataques
+\textit{man-in-the-middle}\footnote{\textit{Man-in-the-middle attack:} Del
+inglés ``Ataque de intermediario''. En criptografía y la seguridad informática,
+corresponde a un ataque en el cual, un intermediario puede observar y alterar el
+contenido de un canal de comunicaciones seguro entre dos partes, las cuales,
+creen estar interactuando de forma directa entre ellas.}.
 
 El estandar \textit{RDF} utiliza firmas digitales para asegurar la autenticidad
 del contenido entregado por los repositorios de datos. Este proceso se realiza
-utilizando metodos estandar y conocidos de firma electronica 17, lo que permite
-demostrar que el contenido proviene de una fuente confiable y que no ha sido
-modificado.
+utilizando metodos estandar y conocidos de firma electronica
+\cite{carroll2003signing}, lo que permite demostrar que el contenido proviene de
+una fuente confiable y que no ha sido modificado.
 
 Si buscamos establecer la identidad de un usuario que intenta utilizar un
-servicio determinado podemos utilizar sistemas como OpenID 57, en el cual, los
-usuarios son redirigidos a un portal donde se verifican sus credenciales y se
-obtiene su identidad digital. [FIXME: MÁS TECNICAS DE AUTENTICACIÓN]
+servicio determinado podemos utilizar sistemas como \textit{OpenID}
+\cite{recordon2006openid}, en el cual, los usuarios son redirigidos a un portal
+donde se verifican sus credenciales y se obtiene su identidad digital. [FIXME:
+MÁS TECNICAS DE AUTENTICACIÓN]
 
 \subsubsection{Unificación e integración}
 
-El proceso de unificación...
+El proceso de unificación de la \textit{web} se refiere al como podemos asegurar
+que un identificador determinado es el correcto para referenciar a una entidad
+determinada. Este problema se genera debido a las caracteristicas de la
+\textit{web} semántica, puesto que corresponde a un sistema distribuido global
+en el cual cualquier actor puede publicar su propia información con sus propios
+identificadores. Un ejemplo de esto se puede apreciar en el desarrollo de la
+sección \ref{sec:ontologia-y-razonamiento} en el cual los identificadores
+\href{https://www.wikidata.org/wiki/Q27586}{\textit{Q27586}} del
+\textit{publisher}\footnote{\textit{Publisher:} Del inglés editor. En nuestro
+caso, se refiere a los mantenedores de contenido en los repositorios de datos
+\textit{RDF} distribuidos a través de internet.} Wikidata y
+\href{http://dbpedia.org/page/Ferrari}{\textit{Ferrari}} del \textit{publisher}
+DBpedia hacen referencia a la misma entidad: la manufacturadora de motores y
+vehiculos italiana de nombre ``Ferrari''.
+
+Reusar identificadores permitiría a los agentes inteligentes descubrir y navegar
+el universo de datos descentralizado de forma más fluida y sencilla. Para
+aportar a esto, los mantendores de contenido, pueden agregar enlaces a URIs de
+otros mantendores. En el caso anterior, si DBpedia agrega un enlace a la URI
+\url{https://www.wikidata.org/wiki/Q27586} en la descripción de su documento
+``Ferrari'', se establece una asociación explicita de estas dos representaciones
+para una misma entidad en distintos repositorios. Otra manera de declarar de
+forma explicita esta relación es a través ontologías utilizando \textit{OWL} a
+través de las propiedades \texttt{owl:sameAs} o \texttt{rdfs:subClassOf}.
 
 \subsubsection{Confianza}
 
-La confianza en la \textit{web} semántica...
+No todos los datos son creados de la misma manera en la \textit{web} semántica
+por lo que para lograr determinar el valor de determinados datos y como puenden
+ser utilizados, debemos conocer los origenes de los datos. Los origines de los
+datos puede ser determinada de multiples formas, una de estas es siguiendo las
+cadenas de los procesos de información como por ejemplo consultas a repositorios
+de forma automatizada \cite{dividino2009querying} \cite{flouris2009coloring}.
+Estos procesos pueden responder preguntas como quien ha creado los datos, desde
+donde provienen, como es que fueron construidos en base a otros datos y cuales
+fueron las reglas de inferencias\footnote{Inferencia: Proceso por el cual se
+deriban conclusiones a partir de premisas.} que se utilizaron para agregar
+propiedades implicitas.
+
+Cuando el proceso por el cual fueron generados los datos no está especificado
+completamente, se necesitan herramientas más abstractas para lograr rastrear los
+origines de la información. Estas herramientas pueden ser obtenidas desde
+entornos de trabajo cómo el \textit{Open Provenance Model (OPM)}
+\cite{moreau2008open}, en el cual, las fuentes o procesos de determinados datos
+pueden ser representados como \textit{black boxes}\footnote{Black Box: Del
+inglés ``Caja Negra''. Se refiere a un proceso o subproceso del cual no
+conocemos su funcionamiento interno y solo podemos observar sus entradas y
+salidas.} y la información sobre las internacciones, dependencias y
+restricciones del proceso son obtenidos a través de metadatos. Una muestra de un
+proceso descrito utilizando \textit{OPM} se puede apreciar en la figura
+\ref{fig:opm-example}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{opm-example.jpg}
+    \caption{Ejemplo de un proceso descrito utilizando \textit{OPM}.} Fuente:
+    \textit{The Open Provenance Model}.
+    \label{fig:opm-example}
+\end{figure}
+
+Una vez que hemos definido la procedencia de nuestros datos, podemos definir
+otra información relacionada a su fuente tales cómo, autor, certeza de la
+información y fuentes para así, a través de un proceso matemático
+\cite{dividino2009provenance}, lograr calcular un valor a la confianza de los
+datos disponibles. Este proceso, puede ser realizado a multiples fuentes,
+sentencias y grafos, permitiendonos obtener un valor de confianza para
+estructuras más complejas.
 
 \subsubsection{Aplicaciones}
+\label{sec:aplicaciones}
 
-Estos estandares y técnologias nos permiten crear aplicaciones...
+El paradigma basico para interactuar con datos es consultar y obtener una
+respuesta: los usuarios construyen consultas y los sistemas entregan respuestas.
+Por lo tanto, para que un sistema permita a los usuarios interactuar con sus
+datos, necesita una interfaz que acepte consultas como entrada y muestre las
+respuestas obtenidas desde el sistema de forma visual. En base a esto, muchas de
+las actuales interfaces disponibles para interactuar con repositorios
+\textit{RDF} o \textit{endpoints SPARQL} corresponden a interfaces interactivas
+\textit{web}, como el \href{https://query.wikidata.org}{\textit{Wikidata Query
+Service}} donde es posible realizar consultas y visualizar resultados de forma
+interactiva (figuras \ref{fig:wikidata-ex-nobel} y
+\ref{fig:wikidata-ex-nobel-result}).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{wikidata-ex-nobel.png}
+    \caption{Consulta \textit{SPARQL} realizada en el \textit{Wikidata Query
+    Service}.} Corresponde a obtener a aquellas personas que han sido premiadas
+    con el Premio Nobel de Química. Fuente: Elaboración propia.
+    \label{fig:wikidata-ex-nobel}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{wikidata-ex-nobel-result.png}
+    \caption{Visualización de una consulta \textit{SPARQL} en el
+    \textit{Wikidata Query Service}.} Representa los resultados de obtener a
+    aquellas personas que han sido premiadas con el Premio Nobel de Química
+    Fuente: \textit{Wikidata Query Service}.
+    \label{fig:wikidata-ex-nobel-result}
+\end{figure}
+
+La \textit{web} semántica genera nuevos desafios para el diseño y desarrollo de
+interfaces que sean facil de utilizar para usuarios sin conocimientos tecnicos y
+que permitan responder a preguntas del estilo ``¿Que tipo de musica se escucha
+en las estaciones de radio de Alemania?'' o ``¿Que personas han participado en
+la realización de peliculas sobre viajes en el tiempo?'' de forma rapida y
+fluida.
+
+En base a todas estas definiciones realizadas desde la sección
+\ref{sec:refs-transporte-enlazados} hasta la sección \ref{sec:aplicaciones} es
+que ahora podemos comprender que es la web semántica y resumirla como el
+conjunto de herramientas, lenguajes, protocolos y estándares que permiten tanto
+a humanos como a agentes inteligentes procesar toda la información disponible en
+la \textit{web} a través de una base de datos global y distribuida.
 
 \subsection{Generación de sugerencias}
 
@@ -310,8 +441,8 @@ El proceso de generación de sugerencias de entidades en base a consultas
 \textit{SPARQL} parciales es la interfaz principal a nuestro sistema. Sin
 embargo, para realizar este proceso, debemos ser capaces de conocer las
 relaciones disponibles en nuestro conjunto de datos sin consultar directamente
-al repositorio. Para esto, crearemos un repositorio local que contendra las
-entidades, identificadores, descripciones, relaciones y otras propiedades
+al repositorio fuente. Para esto, crearemos un repositorio local que contendra
+las entidades, identificadores, descripciones, relaciones y otras propiedades
 necesarias para enviar las sugerencias a nuestros usuarios utilizando el
 proyecto \textit{Apache Lucene} \cite{apache2012welcome}. Además, debido a la
 gran cantidad de relaciones que pueden existir entre las entidades disponibles,
@@ -347,7 +478,9 @@ observar en la figura \ref{fig:forward-backward-index}.
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{forward_backward_index.png}
-    \caption{FIXME}
+    \caption{Ejemplos de un \textit{forward index} y un \textit{inverted
+    index}.} A la izquierda \textit{forward index} y a la derecha
+    \textit{inverted index}. Fuente: Elaboración propia.
     \label{fig:forward-backward-index}
 \end{figure}
 
@@ -385,14 +518,21 @@ documentos en la representación de forma tal que la suma de todos estos valores
 es $1$. El siguiente paso es compartir el \textit{rank} de un documento entre
 aquellos documentos a los que enlaza: un documento con alto \textit{rank}
 entregará bastante puntaje a sus enlazados en comparación a un documento de bajo
-\textit{rank} y con muchos enlaces salientes.
+\textit{rank} y con muchos enlaces salientes. Este proceso recursivo esta
+asegurado para converger, por lo que despues de una cantidad de terminada de
+iteraciones, el \textit{rank} de todos los documentos ha sido calculado.
 
-Este proceso recursivo esta asegurado para converger, por lo que despues de una
-cantidad de terminada de iteraciones, el \textit{rank} de todos los documentos ha
-sido calculado.
+El valor calculado por \textit{PageRank} es asignado los documentos almacenados
+por \textit{Lucene} a través de un \textit{Document level
+boosting}\footnote{\textit{Boosting:} Del inglés impulsar. En nuestro contexto,
+se refiere a aumentar la importancia de una determinada variable a través de un
+mecanismo externo.} el cual es aplicado a cada documento antes de ser ingresado
+a nuestro \textit{reverse index} mencionado anteriormente.
 
-\subsection{RDFExplorer}
+\subsection{\textit{RDFExplorer}}
 
 \textit{RDFExplorer} es...
 
-% FIXME: FIGS LABELS, REFS, EDITION ROUND
+\subsection{\textit{SPARQLforHumans}}
+
+\textit{SPARQLforHumans} es...

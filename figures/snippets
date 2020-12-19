@@ -40,3 +40,21 @@ SELECT DISTINCT ?movie_name WHERE {
 	  # de la variable ?movie
 	?movie wdt:P1476 ?movie_name .
 }
+
+# Awarded Chemistry Nobel Prizes
+
+#defaultView:Timeline
+SELECT DISTINCT ?item ?itemLabel ?when (YEAR(?when) as ?date) ?pic
+WHERE {
+	# ... ha sido premiado (P166)
+	?item p:P166 ?award .
+	# ... con el premio Nobel de Química (Q44585)
+	?award ps:P166 wd:Q44585 .
+	?award pq:P585 ?when .
+	OPTIONAL {
+		?item  wdt:P18 ?pic
+	}
+    SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+}
