@@ -1,27 +1,15 @@
 \documentclass[letterpaper,12pt]{article}
 
-% @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>
-% VALORES A MODIFICAR POR USTED:
-% @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>
-
-% NOTE: Leer nota en el README sobre la font.
-
 \newcommand{\titulo}{SUGERENCIAS PARA LA CONSTRUCCIÓN DE CONSULTAS SPARQL, UNA ALTERNATIVA OPEN SOURCE}
 \newcommand{\ciudad}{Valparaíso}
-% TODO: Consultar el formato de los nombres:
 \newcommand{\nombrealumno}{Carlos Andrés Ponce Godoy}
 \newcommand{\nombreprofesor}{Carlos Buil}
-\newcommand{\nombrecorreferente}{-}
+\newcommand{\nombrecorreferente}{Cecilia Reyes}
 % Mes y año del examen
 \newcommand{\mesexamen}{Julio}
 \newcommand{\anioexamen}{2021}
 % Dedicatoria y agradecimientos
-\newcommand{\dedicatoria}{Considerando lo importancia de este trabajo para los
-alumnos, este apartado es para que el autor entregue palabras personales para
-dedicar este documento. La extensión puede ser de máximo una hoja y se deben
-mantener este formato, tipo y tamaño de letra.
-\hfill\vfill
-\textit{nanos gigantum humeris insidentes}.}
+\newcommand{\dedicatoria}{Dedicado a todas aquellas experiencias y momentos en los que no pude estar con mi familia y amigos, los cuales me perdi al realizar este increible desafio.}
 
 \newcommand{\agradecimientos}{Considerando la importancia de este trabajo para
 los alumnos, este apartado se podrá incluir en el caso de que el autor desee
@@ -37,11 +25,12 @@ pero comprensiva de la memoria y debe informar sobre el objetivo, la metodologí
 y los resultados del trabajo realizado.} \newcommand{\resumeningles}{Corresponde
 a la traducción al idioma inglés del Resumen anterior. Sujeto a la misma regla
 de extensión del Resumen.} \newcommand{\palabrasclave}{SPARQL; RDF; Web
-Semántica; Autocompletado.} \newcommand{\palabrasclaveingles}{\textit{SPARQL};
-\textit{RDF}; \textit{Semantic Web}; \textit{Autocompletion}.}
+Semántica; Autocompletado; Rendimiento.} \newcommand{\palabrasclaveingles}{\textit{SPARQL};
+\textit{RDF}; \textit{Semantic Web}; \textit{Autocompletion}; \textit{Performance}.}
 % @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>
 
 % Paquete para importar imágenes
+\usepackage[dvipsnames]{xcolor}
 \usepackage{graphicx}
 % Directorio de las imágenes
 \graphicspath{ {figures/} }
@@ -158,6 +147,49 @@ Semántica; Autocompletado.} \newcommand{\palabrasclaveingles}{\textit{SPARQL};
 
 \renewcommand\cftfigfont{\fontsize{12}{14}\selectfont\fontspec{Carlito}}
 
+% Code listings
+\definecolor{LightGray}{rgb}{0.97,0.97,0.97}
+\usepackage{listings}
+\lstdefinelanguage{SPARQL}{
+  basicstyle=\small\ttfamily,
+  backgroundcolor=\color{LightGray},
+  columns=fullflexible,
+  breaklines=false,
+  sensitive=true,
+  % --------------------------
+  frame=bt,
+  aboveskip=1em,
+  belowskip=1em,
+  xleftmargin=.5em,
+  xrightmargin=.5em,
+  framexleftmargin=.5em,
+  framextopmargin=.5em,
+  framexbottommargin=.5em,
+  framexrightmargin=.5em,
+  % --------------------------
+  tabsize = 2,
+  showstringspaces=false,
+  morecomment=[l][\color{gray}]{\#},       % comments
+  morecomment=[n][\color{blue}]{<http}{>}, % uris
+  morestring=[b][\color{OliveGreen}]{\"},  % strings
+  % -------------------------- variables
+  keywordsprefix=?,
+  classoffset=0,
+  keywordstyle=\color{Sepia},
+  morekeywords={},
+  % -------------------------- prefixes
+  classoffset=1,
+  keywordstyle=\color{Purple},
+  morekeywords={rdf,rdfs,owl,xsd,purl},
+  % -------------------------- keywords
+  classoffset=2,
+  keywordstyle=\color{MidnightBlue},
+  morekeywords={
+    SELECT,CONSTRUCT,DESCRIBE,ASK,WHERE,FROM,NAMED,PREFIX,BASE,OPTIONAL,
+    FILTER,GRAPH,LIMIT,OFFSET,SERVICE,UNION,EXISTS,NOT,BINDINGS,MINUS,a
+  }
+}
+
 % Links sin color
 \usepackage{hyperref}
 \hypersetup{colorlinks = false}
@@ -192,19 +224,19 @@ Semántica; Autocompletado.} \newcommand{\palabrasclaveingles}{\textit{SPARQL};
 \pagestyle{intermedio}
 \pagenumbering{arabic}
 
-% \input{introduccion}
-% \newpage
-% \input{definicion_del_problema}
-% \newpage
+\input{introduccion}
+\newpage
+\input{definicion_del_problema}
+\newpage
 \input{marco_conceptual}
-% \newpage
-% \input{propuesta_de_solucion}
-% \newpage
-% \input{validacion_de_la_solucion}
-% \newpage
-% \input{conclusiones}
-% \newpage
-% \input{anexos}
+\newpage
+\input{propuesta_de_solucion}
+\newpage
+\input{validacion_de_la_solucion}
+\newpage
+\input{conclusiones}
+\newpage
+\input{anexos}
 
 \newpage
 % FIXME: apalike-es throws error using 'others' in autors
