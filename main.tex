@@ -180,7 +180,7 @@ Semántica; Autocompletado; Rendimiento.} \newcommand{\palabrasclaveingles}{\tex
   % -------------------------- prefixes
   classoffset=1,
   keywordstyle=\color{Purple},
-  morekeywords={rdf,rdfs,owl,xsd,purl},
+  morekeywords={rdf,rdfs,owl,xsd,purl,wdt,wd,ps,pq,p,bd,wikibase},
   % -------------------------- keywords
   classoffset=2,
   keywordstyle=\color{MidnightBlue},
@@ -188,6 +188,66 @@ Semántica; Autocompletado; Rendimiento.} \newcommand{\palabrasclaveingles}{\tex
     SELECT,CONSTRUCT,DESCRIBE,ASK,WHERE,FROM,NAMED,PREFIX,BASE,OPTIONAL,
     FILTER,GRAPH,LIMIT,OFFSET,SERVICE,UNION,EXISTS,NOT,BINDINGS,MINUS,a
   }
+}
+
+\lstdefinelanguage{CustomXML}{
+  basicstyle=\small\ttfamily,
+  backgroundcolor=\color{LightGray},
+  columns=fullflexible,
+  breaklines=false,
+  sensitive=true,
+  % --------------------------
+  frame=bt,
+  aboveskip=1em,
+  belowskip=1em,
+  xleftmargin=.5em,
+  xrightmargin=.5em,
+  framexleftmargin=.5em,
+  framextopmargin=.5em,
+  framexbottommargin=.5em,
+  framexrightmargin=.5em,
+  % --------------------------
+  morestring=[b]",
+  moredelim=[s][\bfseries\color{MidnightBlue}]{<}{\ },
+  moredelim=[s][\bfseries\color{MidnightBlue}]{</}{>},
+  moredelim=[l][\bfseries\color{MidnightBlue}]{/>},
+  moredelim=[l][\bfseries\color{MidnightBlue}]{>},
+  morecomment=[s]{<?}{?>},
+  morecomment=[s]{<!--}{-->},
+  commentstyle=\color{Sepia},
+  stringstyle=\color{OliveGreen},
+  identifierstyle=\color{Purple}
+}
+
+\lstdefinelanguage{Turtle}{
+  basicstyle=\small\ttfamily,
+  backgroundcolor=\color{LightGray},
+  columns=fullflexible,
+  breaklines=false,
+  sensitive=true,
+  % --------------------------
+  frame=bt,
+  aboveskip=1em,
+  belowskip=1em,
+  xleftmargin=.5em,
+  xrightmargin=.5em,
+  framexleftmargin=.5em,
+  framextopmargin=.5em,
+  framexbottommargin=.5em,
+  framexrightmargin=.5em,
+  % --------------------------
+  morestring=[b]",
+  morecomment=[n][\color{blue}]{<http}{>},
+  stringstyle=\color{OliveGreen},
+  % -------------------------
+  keywordsprefix=@,
+  classoffset=0,
+  keywordstyle=\color{MidnightBlue},
+  morekeywords={},
+  % --------------------------
+  classoffset=1,
+  keywordstyle=\color{Purple},
+  morekeywords={rdf,dc,ex},
 }
 
 % Links sin color
